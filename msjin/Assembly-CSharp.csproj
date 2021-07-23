@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Scene\SceneBase.cs" />
     <Compile Include="Assets\Script\Scene\Dungeon.cs" />
+    <Compile Include="Assets\Script\Unit\Character\PlayerEquipment.cs" />
     <Compile Include="Assets\Resource\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\Resource\SPUM\Sprite_Editor(Beta)\Script\SpriteEyeSync.cs" />
     <Compile Include="Assets\Resource\SPUM\Script\SPUM_SpriteButtonST.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Resource\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\Script\Manager\SceneMgr.cs" />
     <Compile Include="Assets\Script\SceneUI\GameSceneUI.cs" />
+    <Compile Include="Assets\Script\Manager\ResourceManager.cs" />
     <Compile Include="Assets\Resource\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\Script\Scene\GameStart.cs" />
     <Compile Include="Assets\Script\Manager\UIManager.cs" />
@@ -90,8 +92,7 @@
     <Compile Include="Assets\Script\Unit\UnitBase.cs" />
     <Compile Include="Assets\Script\Unit\Character\PlayerBase.cs" />
     <Compile Include="Assets\Script\Scene\Store.cs" />
-    <Compile Include="Assets\Script\Unit\Character\PlayerEquipment.cs" />
-    <Compile Include="Assets\Script\Manager\ResourceManager.cs" />
+    <Compile Include="Assets\Script\Manager\BattleManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Resource\SimplePixelUI\fonts\Font2\license.txt" />
