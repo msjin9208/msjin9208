@@ -74,7 +74,7 @@ Temp/UnityLockfile
 Library/
 Library/ArtifactDB
 Temp/
-msjin/obj/
+obj/
 Assembly-CSharp
 Assembly-CSharp.csproj
 Assembly-CSharp-Editor
