@@ -11,6 +11,8 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] GameObject PlayerPosition;
     [SerializeField] GameObject Monster;
     [SerializeField] GameObject MonsterPosition;
+    [SerializeField] public GameObject ItemBase;
+
     private void Awake()
     {
         if (Instance == null)

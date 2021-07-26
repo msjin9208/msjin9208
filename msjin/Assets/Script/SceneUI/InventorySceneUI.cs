@@ -8,11 +8,20 @@ public class InventorySceneUI : BaseUI
     [SerializeField] Button _backBtn;
     private void Start()
     {
-        _backBtn.onClick.AddListener(ScenePreviewEnter);
+        SceneUIInit();
     }
+    public override void SceneUIInit()
+    {
+        _backBtn.onClick.AddListener(ScenePreviewEnter);
+
+        base.SceneUIInit();
+    }
+
     public override void SceneEnter(SceneBase scene)
     {
         base.SceneEnter(scene);
+
+        SceneUIInit();
     }
     public override void ScenePreviewEnter()
     {

@@ -11,6 +11,13 @@ public class PlayerBase : UnitBase
     [SerializeField] float _attackSpeed;
 
     private PlayerEquipment _playerEquipment;
+    private PlayerInfo _playerInfo;
+
+    public PlayerInfo PlayerInfo
+    {
+        get { return _playerInfo; }
+        set { _playerInfo = value; }
+    }
 
     public override void InitUnit()
     {
@@ -22,8 +29,12 @@ public class PlayerBase : UnitBase
         _unitStatus._defence = _defence;
         _unitStatus._attackSpeed = _attackSpeed;
 
+        // 플레이어 장비
         _playerEquipment = GetComponent<PlayerEquipment>();
         _playerEquipment.EquipmentInit();
+        // 플레이어 정보
+        _playerInfo = new PlayerInfo();
+        _playerInfo.playerInfoInit();
     }
 
 

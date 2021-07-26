@@ -14,6 +14,7 @@ public enum SCENENAME
 public class SceneBase
 {
     protected SCENENAME  _sceneName;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class SceneBase
 
     public virtual void InitScene()
     {
-
+       
     }
 
     public virtual void EnterScene()

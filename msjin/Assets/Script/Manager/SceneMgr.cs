@@ -75,8 +75,8 @@ public class SceneMgr : MonoBehaviour
     {
         _currentScene.EnterScene();
         SceneManager.LoadScene(_currentScene.Scene().ToString());
-        _currentScene.ResourceLoad();
         
+        _currentScene.ResourceLoad();
     }
 
 

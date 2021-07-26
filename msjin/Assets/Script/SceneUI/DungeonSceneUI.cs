@@ -9,7 +9,7 @@ public class DungeonSceneUI : BaseUI
     // Start is called before the first frame update
     void Start()
     {
-        _backBtn.onClick.AddListener(ScenePreviewEnter);
+        SceneUIInit();
     }
 
     // Update is called once per frame
@@ -17,13 +17,23 @@ public class DungeonSceneUI : BaseUI
     {
         
     }
+    public override void SceneUIInit()
+    {
+        _backBtn.onClick.AddListener(ScenePreviewEnter);
+
+        base.SceneUIInit();
+    }
+
+    public override void SceneEnter(SceneBase scene)
+    {
+        base.SceneEnter(scene);
+
+        SceneUIInit();
+    }
 
     public override void ScenePreviewEnter()
     {
         base.ScenePreviewEnter();
     }
-    public override void SceneEnter(SceneBase scene)
-    {
-        base.SceneEnter(scene);
-    }
+
 }

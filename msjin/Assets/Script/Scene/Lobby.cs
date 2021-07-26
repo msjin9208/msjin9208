@@ -13,14 +13,14 @@ public class Lobby : SceneBase
         base.InitScene();
         _sceneName = SCENENAME.Lobby;
         _player = GameManager.Instance.PLAYER;
-        _player.SetActive(true);   
+        _player.SetActive(true);
     }
 
     public override void EnterScene()
     {
         InitScene();
 
-        
+       
         base.EnterScene();
     }
     

@@ -226,6 +226,7 @@ MonoBehaviour:
   PlayerPosition: {fileID: 0}
   Monster: {fileID: 0}
   MonsterPosition: {fileID: 0}
+  ItemBase: {fileID: 29441689345858969, guid: 2081816bb8a094540a0e14921b55354e, type: 3}
 --- !u!1001 &465150235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1107,7 +1108,7 @@ GameObject:
   - component: {fileID: 2129671193}
   - component: {fileID: 2129671192}
   m_Layer: 10
-  m_Name: GamePanel
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
