@@ -8,7 +8,6 @@ public class ResourceManager : MonoBehaviour
 
 
     [SerializeField] public GameObject Player;
-    [SerializeField] GameObject PlayerPosition;
     [SerializeField] GameObject Monster;
     [SerializeField] GameObject MonsterPosition;
     [SerializeField] public GameObject ItemBase;
@@ -30,6 +29,6 @@ public class ResourceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+  
     }
 }

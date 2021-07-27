@@ -21,12 +21,17 @@ public struct Info
 public class PlayerInfo
 {
     public Info _info;
-    
-    public void playerInfoInit()
+
+    public PlayerInfo()
     {
         _info._playerNickName = "Mun Su Jin";
         _info._playerJob = PLAYERJOB.Warrior;
         _info._playerLevel = 1;
         _info._playerGold = 10;
+    }
+
+    public void ItemPurchase(int price)
+    {
+        _info._playerGold -= price;
     }
 }

@@ -26,23 +26,9 @@ public class GameManager : MonoBehaviour
 
         _playeObject = GameObject.Instantiate<GameObject>(ResourceManager.Instance.Player, new Vector3(0, 0, 0), Quaternion.identity);
         _playerBase = _playeObject.GetComponent<PlayerBase>();
-
-        _playeObject.SetActive(false);
+        
         _playerBase.InitUnit();
-
         DontDestroyOnLoad(_playeObject);
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

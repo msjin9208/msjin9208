@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Lobby : SceneBase
 {
     GameObject _player;
-    GameObject _playerPosition;
 
     public override void InitScene()
     {

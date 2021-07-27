@@ -15,6 +15,10 @@ public class SceneMgr : MonoBehaviour
     public bool _readyToLoad = false;
     public bool _sceneLoad = false;
 
+    public SceneBase CURRENTSCENE
+    {
+        get { return _currentScene; }
+    }
     private void Awake()
     {
         if(Instance == null)
@@ -42,6 +46,11 @@ public class SceneMgr : MonoBehaviour
         {
             LoadScene();
             _readyToLoad = false;  
+        }
+        if(PlayerEntry.Instance._onLoad == true)
+        {
+            _currentScene.ResourceLoad();
+            PlayerEntry.Instance._onLoad = false;
         }
     }
 
@@ -75,8 +84,6 @@ public class SceneMgr : MonoBehaviour
     {
         _currentScene.EnterScene();
         SceneManager.LoadScene(_currentScene.Scene().ToString());
-        
-        _currentScene.ResourceLoad();
     }
 
 

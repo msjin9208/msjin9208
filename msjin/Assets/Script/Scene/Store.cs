@@ -43,6 +43,24 @@ public class Store : SceneBase
 
         Debug.Log(obj2.name);
         GameObject.Instantiate(itembase, obj2.transform);
-        
+     }
+
+
+    //구매
+    // 나중에 아이템 가격말고 버튼 정보를 아예 불러와야 함
+    public override void purchase(int itemPrice)
+    {
+        var player = GameManager.Instance.PLAYER;
+        var playerGold = player.GetComponent<PlayerBase>().PlayerInfo._info._playerGold;
+        if(itemPrice > playerGold)
+        {
+            Debug.Log(playerGold);
+            UIAnimation.Instance.FailUI("소지 금액 부족으로 구매 불가!");
+        }
+        else
+        {
+            UIAnimation.Instance.FailUI("구매 성공!!!");
+            player.GetComponent<PlayerBase>().PlayerInfo.ItemPurchase(itemPrice);
+        }
     }
 }

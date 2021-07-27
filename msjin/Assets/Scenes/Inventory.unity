@@ -399,11 +399,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532037789595737912, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 390
+      value: 453.8
       objectReference: {fileID: 0}
     - target: {fileID: 532037789595737912, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343703702542802315, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5343703702855782534, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}
       propertyPath: m_Pivot.x
@@ -492,6 +496,10 @@ PrefabInstance:
     - target: {fileID: 5343703702855782535, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}
       propertyPath: m_Name
       value: UPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212469921874548041, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983f6e262d1e4524eb807139b4ffe10e, type: 3}

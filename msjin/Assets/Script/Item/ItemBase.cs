@@ -24,7 +24,13 @@ public class ItemBase : MonoBehaviour
 
     public virtual void SetItem(Sprite itemImage, string itemName, int itemPrice)
     {
-        gameObject.GetComponentInChildren<SpriteRenderer>().sprite = _itemImage;
+        var image = GetComponentsInChildren<Image>();
+
+        for(int i = 0; i < image.Length; i++)
+            if (image[i].name == "ItemImage")
+                image[i].sprite = _itemImage;
+
+        //gameObject.GetComponentsInChildren<Image>().sprite = _itemImage;
         var itemText = gameObject.GetComponentsInChildren<Text>();
 
         itemText[0].text = itemName;

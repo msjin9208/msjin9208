@@ -12,11 +12,16 @@ public class PlayerBase : UnitBase
 
     private PlayerEquipment _playerEquipment;
     private PlayerInfo _playerInfo;
+    private PlayerAnimationManager _playerAnimation;
 
     public PlayerInfo PlayerInfo
     {
         get { return _playerInfo; }
         set { _playerInfo = value; }
+    }
+    public PlayerAnimationManager PlayerAnimationManager
+    {
+        get { return _playerAnimation; }
     }
 
     public override void InitUnit()
@@ -34,7 +39,9 @@ public class PlayerBase : UnitBase
         _playerEquipment.EquipmentInit();
         // 플레이어 정보
         _playerInfo = new PlayerInfo();
-        _playerInfo.playerInfoInit();
+        //_playerInfo.playerInfoInit();
+        //플레이어 애니메이션
+        _playerAnimation = new PlayerAnimationManager();
     }
 
 

@@ -39,6 +39,7 @@ public class SceneBase
     }
     public virtual void ExitScene()
     {
+        PlayerEntry.Instance.PlayerOut();
         UIAnimation.Instance.FadeOut();
     }
     public virtual SCENENAME Scene()
@@ -48,5 +49,13 @@ public class SceneBase
     public virtual void ResourceLoad()
     {
         UIAnimation.Instance.FadeIn();
+        PlayerEntry.Instance.PlayerEnter();
+    }
+
+
+    //ªË¡¶
+    public virtual void purchase(int itemPrice)
+    {
+
     }
 }

@@ -34,6 +34,8 @@ public class StoreSceneUI : BaseUI
 
     private void Update()
     {
+
+        //ªË¡¶
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             var itembase = ResourceManager.Instance.ItemBase;
@@ -42,6 +44,12 @@ public class StoreSceneUI : BaseUI
 
             Debug.Log(obj2.name);
             GameObject.Instantiate(itembase, obj2.transform);
+
+
+
+            var scene = SceneMgr.Instance.CURRENTSCENE;
+            scene.purchase(10);
+            RefreshPlayerInfo();
         }
     }
 }

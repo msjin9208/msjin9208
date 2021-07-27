@@ -36,7 +36,8 @@ public class BaseUI : MonoBehaviour
         SceneMgr.Instance.ChangePreviewScene();
     }
 
-    private void RefreshPlayerInfo()
+    //보안 생각 해야 돼 나중에 private로 변경해야할수도
+    public void RefreshPlayerInfo()
     {
         var playerNickName = _playerNickName.GetComponentInChildren<Text>();
         var playerLV = _playerLV.GetComponentInChildren<Text>();
