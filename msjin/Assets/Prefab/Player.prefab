@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 10
-  _mp: 11
-  _attack: 12
-  _defence: 13
-  _attackSpeed: 14
+  _mp: 10
+  _attack: 10
+  _defence: 10
+  _attackSpeed: 10
 --- !u!114 &4954476413023253777
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC81C\uBC1C \uC131\uACF5\uD574\uB77C!!!"
+  m_Text: "\uB450\uBC88\uC9F8\uAEBC\uB2E4!!!!"
 --- !u!1 &29441688940327504
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000
+  m_Text: 10
 --- !u!1 &29441689094416857
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +246,6 @@ GameObject:
   - component: {fileID: 29441689345858972}
   - component: {fileID: 29441689345858971}
   - component: {fileID: 29441689345858974}
-  - component: {fileID: -7051030126860410837}
   m_Layer: 5
   m_Name: StoreItem
   m_TagString: Untagged
@@ -384,18 +383,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &-7051030126860410837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29441689345858969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f40d3a7756ec18d4cb3f1b93b7d97367, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemImage: {fileID: 21300000, guid: b8a3f9debf9a740ebba84d95c6700721, type: 3}
-  _itemName: 
-  _itemPrice: 0

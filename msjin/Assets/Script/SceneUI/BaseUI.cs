@@ -24,11 +24,12 @@ public class BaseUI : MonoBehaviour
 
     public virtual void SceneUIInit()
     {
-        RefreshPlayerInfo();
+        Messenger.AddListener(Definition.RefreshPlayerInfo, RefreshPlayerInfo);
     }
 
     public virtual void SceneEnter(SceneBase scene)
     {
+        
         SceneMgr.Instance.ChangeNextScene(scene);
     }
     public virtual void ScenePreviewEnter()
@@ -37,7 +38,7 @@ public class BaseUI : MonoBehaviour
     }
 
     //보안 생각 해야 돼 나중에 private로 변경해야할수도
-    public void RefreshPlayerInfo()
+    private void RefreshPlayerInfo()
     {
         var playerNickName = _playerNickName.GetComponentInChildren<Text>();
         var playerLV = _playerLV.GetComponentInChildren<Text>();

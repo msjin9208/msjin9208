@@ -7,6 +7,7 @@ public class GameStart : SceneBase
     public override void InitScene()
     {
         base.InitScene();
+
         _sceneName = SCENENAME.Game;
     }
 

@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 60708337}
   - component: {fileID: 60708336}
   m_Layer: 0
-  m_Name: StoreSceneUI
-  m_TagString: Untagged
+  m_Name: SceneUI
+  m_TagString: SceneUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,6 @@ MonoBehaviour:
   _playerGold: {fileID: 1998791513}
   _backBtn: {fileID: 1998791512}
   _panel: {fileID: 0}
-  _playerPosition: {fileID: 0}
 --- !u!4 &60708337
 Transform:
   m_ObjectHideFlags: 0
@@ -253,7 +252,7 @@ GameObject:
   - component: {fileID: 703133981}
   m_Layer: 5
   m_Name: StorePanel
-  m_TagString: SceneUI
+  m_TagString: FunctionPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

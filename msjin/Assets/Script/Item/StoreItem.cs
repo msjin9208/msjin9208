@@ -5,29 +5,34 @@ using UnityEngine.UI;
 
 public class StoreItem : ItemBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void ItemInit(Sprite itemImage, string itemName, int itemPrice, ITEMFUNCTION itemfunc)
     {
-        //_itemName = "아무거나";
-        //_itemPrice = 100000;
+        //_itemImage = itemImage;
+        _itemName = itemName;
+        _itemPrice = itemPrice;
+        _itemFuncion = itemfunc;
+        _itemFunctionValue = 2f;
 
-        //var obj = GetComponentInChildren<Sprite>();
-        //var objText = GetComponentsInChildren<Text>();
-
-        //obj = _itemImage;
-        //objText[0].text = _itemName;
-        //objText[1].text = string.Format("Price : " + _itemPrice.ToString());
+        base.ItemInit(_itemImage, _itemName, _itemPrice, itemfunc);
+    }
+    protected override void ItemPurchase()
+    {
+        var player = GameManager.Instance.PLAYER;
+        var playerGold = player.GetComponent<PlayerBase>().PlayerInfo._info._playerGold;
+        if (_itemPrice > playerGold)
+        {
+            Debug.Log(playerGold);
+            UIAnimation.Instance.FailUI("소지 금액 부족으로 구매 불가!");
+        }
+        else
+        {
+            UIAnimation.Instance.FailUI("구매 성공!!!");
+            player.GetComponent<PlayerBase>().PlayerInfo.ItemPurchase(this._itemPrice, this._itemFuncion, this._itemFunctionValue);
+        }
     }
 
-    public override void SetItem(Sprite itemImage, string itemName, int itemPrice)
+    public override void ItemSetObject(Button obj)
     {
-        base.SetItem(itemImage, itemName, itemPrice);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.ItemSetObject(obj);
     }
 }

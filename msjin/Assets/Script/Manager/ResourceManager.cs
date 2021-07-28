@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] public GameObject Player;
     [SerializeField] GameObject Monster;
     [SerializeField] GameObject MonsterPosition;
-    [SerializeField] public GameObject ItemBase;
+    [SerializeField] public Button ItemBase;
 
     private void Awake()
     {

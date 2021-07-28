@@ -14,6 +14,7 @@ public enum SCENENAME
 public class SceneBase
 {
     protected SCENENAME  _sceneName;
+    bool _resourceLoadComplete;
     
 
     // Start is called before the first frame update
@@ -35,7 +36,7 @@ public class SceneBase
 
     public virtual void EnterScene()
     {
-        
+        Messenger.Broadcast(Definition.RefreshPlayerInfo);
     }
     public virtual void ExitScene()
     {
@@ -48,14 +49,7 @@ public class SceneBase
     }
     public virtual void ResourceLoad()
     {
-        UIAnimation.Instance.FadeIn();
         PlayerEntry.Instance.PlayerEnter();
-    }
-
-
-    //ªË¡¶
-    public virtual void purchase(int itemPrice)
-    {
-
+        UIAnimation.Instance.FadeIn();
     }
 }

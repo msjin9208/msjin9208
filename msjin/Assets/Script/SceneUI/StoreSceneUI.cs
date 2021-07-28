@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class StoreSceneUI : BaseUI
 {
     [SerializeField] Button _backBtn;
-    [SerializeField] GameObject _panel;
 
     private void Start()
     {
@@ -16,7 +15,6 @@ public class StoreSceneUI : BaseUI
     {
         _backBtn.onClick.AddListener(ScenePreviewEnter);
 
-        GameManager.Instance.PLAYER.GetComponent<PlayerBase>().PlayerInfo._info._playerGold += 10;
         base.SceneUIInit();
     }
 
@@ -35,21 +33,6 @@ public class StoreSceneUI : BaseUI
     private void Update()
     {
 
-        //삭제
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            var itembase = ResourceManager.Instance.ItemBase;
-            itembase.GetComponent<ItemBase>().SetItem(null, "제발 성공해라!!!", 1000);
-            var obj2 = GameObject.FindGameObjectWithTag("SceneUI");
-
-            Debug.Log(obj2.name);
-            GameObject.Instantiate(itembase, obj2.transform);
-
-
-
-            var scene = SceneMgr.Instance.CURRENTSCENE;
-            scene.purchase(10);
-            RefreshPlayerInfo();
-        }
     }
+
 }

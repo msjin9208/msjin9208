@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerPosition
   - SceneUI
+  - FunctionPanel
   layers:
   - Default
   - TransparentFX

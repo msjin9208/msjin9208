@@ -55,6 +55,4 @@ public class LobbySceneUI : BaseUI
         _inventory = null;
         _store = null;
     }
-
-
 }

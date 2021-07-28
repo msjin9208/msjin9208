@@ -34,15 +34,41 @@ public class PlayerBase : UnitBase
         _unitStatus._defence = _defence;
         _unitStatus._attackSpeed = _attackSpeed;
 
-        // 플레이어 장비
+        // 플레이어 장비 데이터 생성
         _playerEquipment = GetComponent<PlayerEquipment>();
         _playerEquipment.EquipmentInit();
-        // 플레이어 정보
+        // 플레이어 정보 생성
         _playerInfo = new PlayerInfo();
         //_playerInfo.playerInfoInit();
-        //플레이어 애니메이션
+
+        //플레이어 애니메이터 생성
         _playerAnimation = new PlayerAnimationManager();
     }
 
-
+    public void UpdatePlayerStateForItem(ITEMFUNCTION itemFunc, float value)
+    {
+        switch (itemFunc)
+        {
+            case ITEMFUNCTION.Attack:
+                _attack += value;
+                Debug.Log(string.Format("공격력 : "  +_attack.ToString()));
+                break;
+            case ITEMFUNCTION.AttackSpeed:
+                _attackSpeed += value;
+                Debug.Log(string.Format("공격 스피드 : " + _attackSpeed.ToString()));
+                break;
+            case ITEMFUNCTION.Defence:
+                _defence += value;
+                Debug.Log(string.Format("방어력 : " + _defence.ToString()));
+                break;
+            case ITEMFUNCTION.Hp:
+                _hp  += value;
+                Debug.Log(string.Format("HP : " + _hp.ToString()));
+                break;
+            case ITEMFUNCTION.Mp:
+                _mp += value;
+                Debug.Log(string.Format("MP : " + _mp.ToString()));
+                break;
+        }
+    }
 }

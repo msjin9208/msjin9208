@@ -678,8 +678,8 @@ GameObject:
   - component: {fileID: 2131382996}
   - component: {fileID: 2131382995}
   m_Layer: 0
-  m_Name: DungeonSceneUI
-  m_TagString: Untagged
+  m_Name: SceneUI
+  m_TagString: SceneUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

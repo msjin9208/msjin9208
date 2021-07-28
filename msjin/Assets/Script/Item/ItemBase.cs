@@ -3,12 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemBase : MonoBehaviour
+public enum ITEMFUNCTION
 {
-    [SerializeField] public Sprite _itemImage;
-    public string _itemName;
-    public int _itemPrice;
+    Hp,
+    Mp,
+    Attack,
+    Defence,
+    AttackSpeed
+}
 
+public class ItemBase
+{
+    [SerializeField] protected Sprite _itemImage;
+    protected string _itemName;
+    protected int _itemPrice;
+    protected float _itemFunctionValue;
+    protected ITEMFUNCTION _itemFuncion;
+    protected Button _itemObject;
+
+    public Button _ITEMBUTTON
+    {
+        get { return _itemObject; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,20 +37,31 @@ public class ItemBase : MonoBehaviour
     {
         
     }
-
-    public virtual void SetItem(Sprite itemImage, string itemName, int itemPrice)
+    protected virtual void ItemPurchase()
     {
-        var image = GetComponentsInChildren<Image>();
 
-        for(int i = 0; i < image.Length; i++)
-            if (image[i].name == "ItemImage")
-                image[i].sprite = _itemImage;
-
-        //gameObject.GetComponentsInChildren<Image>().sprite = _itemImage;
-        var itemText = gameObject.GetComponentsInChildren<Text>();
-
-        itemText[0].text = itemName;
-        itemText[1].text = itemPrice.ToString();
     }
 
+    public virtual void ItemInit(Sprite itemImage, string itemName, int itemPrice, ITEMFUNCTION itemfunc)
+    {
+     
+    }
+
+    public virtual void ItemSetObject(Button obj)
+    {
+        _itemObject = obj;
+        _itemObject.onClick.AddListener(ItemPurchase);
+        //_itemObject.GetComponent<Button>().onClick.AddListener(ItemPurchase);
+
+        var findImage = _itemObject.GetComponentsInChildren<Image>();
+        for (int i = 0; i < findImage.Length; i++)
+        {
+            if (findImage[i].name == "ItemImage")
+                findImage[i].sprite = _itemImage;
+        }
+
+        var itemText = _itemObject.GetComponentsInChildren<Text>();
+        itemText[0].text = _itemName;
+        itemText[1].text = _itemPrice.ToString();
+    }
 }
