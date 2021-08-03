@@ -43,6 +43,7 @@ public class InventorySceneUI : BaseUI
 
     private void SetInventoryItem()
     {
+        
         for(int i = 0; i < 72; i++)
         {
             var obj = GameObject.Instantiate(_inventorySlot, _rectOfInventory.transform);
@@ -50,25 +51,33 @@ public class InventorySceneUI : BaseUI
             _inventorySlotList.Add(obj);
             _inventorySlotList[i].GetComponent<InventorySlot>().SlotInit(null);
         }
-        DropItemBase dropItemBase = new DropItemBase();
-        dropItemBase.ItemInit();
-        _inventorySlotList[0].GetComponent<InventorySlot>().SlotInit(dropItemBase);
-        _inventorySlotList[0].onClick.AddListener(OnClickFunction);
+
+        var playerInventoryList = GameManager.Instance.PLAYER.GetComponent<PlayerInventory>().PLAYERINVENTORY;
+        for (int i = 0; i < playerInventoryList.Count; i++)
+		{
+            playerInventoryList[i].ItemInit();
+            _inventorySlotList[i].GetComponent<InventorySlot>().
+                SlotInit(playerInventoryList[i]);
+            var itemBase = _inventorySlotList[i].GetComponent<InventorySlot>().ITEMINFO;
+            _inventorySlotList[i].onClick.AddListener(() => OnClickFunction(itemBase));
+        }
+
     }
 
-    private void OnClickFunction()
+    private void OnClickFunction(DropItemBase itemBase)
     {
         _rectOfItemInfo.SetActive(true);
-        var itemBase = _inventorySlotList[0].GetComponent<InventorySlot>().ITEMINFO;
 
-        _rectOfItemInfo.GetComponentInChildren<RawImage>().texture = itemBase.ITEMIMAGE;
+
+        var image = _rectOfItemInfo.GetComponentsInChildren<Image>();
+        image[2].sprite = itemBase.ITEMIMAGE;
         var texts = _rectOfItemInfo.GetComponentsInChildren<Text>();
         texts[0].text = itemBase.ITEMNAME;
         texts[1].text = string.Format("Item Value : " + itemBase.ITEMFUNCTIONVALUE.ToString());
         texts[2].text = string.Format("Price : " + itemBase.ITEMPRICE.ToString());
 
         var buttons = _rectOfItemInfo.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(itemBase.ItemUse);
+        buttons[0].onClick.AddListener(()=> itemBase.ItemUse(itemBase.ITEMUSED, itemBase));
         buttons[1].onClick.AddListener(itemBase.ItemDestroy);
         buttons[2].onClick.AddListener(() => _rectOfItemInfo.SetActive(false));
     }

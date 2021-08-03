@@ -13,7 +13,7 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] GameObject MonsterPosition;
     [SerializeField] public Button ItemBase;
 
-    [SerializeField] public Texture sprite;
+    [SerializeField] public Sprite sprite;
 
     private void Awake()
     {

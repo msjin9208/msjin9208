@@ -25,6 +25,6 @@ public class InventorySlot : MonoBehaviour
 
 
         GetComponent<Button>().interactable = true;
-        GetComponentInChildren<RawImage>().texture = _itemInfo.ITEMIMAGE;
+        GetComponentInChildren<Image>().sprite = _itemInfo.ITEMIMAGE;
     }
 }

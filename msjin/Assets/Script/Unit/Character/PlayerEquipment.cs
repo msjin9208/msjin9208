@@ -16,7 +16,8 @@ public class PlayerEquipment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Messenger.AddListener<ItemUsed, DropItemBase>(Definition.PlayerItemUsed, ItemUsed);
+        Messenger.AddListener<ItemUsed, DropItemBase>(Definition.PlayerItemUnEquip, ItemUnEquip);
     }
 
     // Update is called once per frame
@@ -49,5 +50,46 @@ public class PlayerEquipment : MonoBehaviour
         _weapon.sprite = null;
         _shield.sprite = null;
         _helmat.sprite = null;
+    }
+
+    private void ItemUsed(ItemUsed itemused, DropItemBase item)
+	{
+        switch(itemused)
+		{
+            case global::ItemUsed.Weapon:
+                _weapon.sprite = item.ITEMIMAGE;
+                break;
+            case global::ItemUsed.Armor:
+                break;
+            case global::ItemUsed.Hand:
+                break;
+            case global::ItemUsed.Foot:
+                break;
+            case global::ItemUsed.Potion:
+                break;
+        }
+	}
+    private void ItemUnEquip(ItemUsed itemUsed, DropItemBase item)
+    {
+        switch (itemUsed)
+        {
+            case global::ItemUsed.Weapon:
+                _weapon.sprite = null;
+                break;
+            case global::ItemUsed.Armor:
+                break;
+            case global::ItemUsed.Hand:
+                break;
+            case global::ItemUsed.Foot:
+                break;
+            case global::ItemUsed.Potion:
+                break;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener<ItemUsed, DropItemBase>(Definition.PlayerItemUsed, ItemUsed);
+        Messenger.RemoveListener<ItemUsed, DropItemBase>(Definition.PlayerItemUnEquip, ItemUnEquip);
     }
 }

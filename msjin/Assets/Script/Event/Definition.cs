@@ -20,4 +20,8 @@ public class Definition
     //플레이어 아이템 구입
     public const string PlayerPurchase = "PlayerPurchase";
     public const string RefreshPlayerInfoInStore = "RefreshPlayerInfoInStore";
+
+    //플레이어 인벤토리
+    public const string PlayerItemUsed = "PlayerItemUsed";
+    public const string PlayerItemUnEquip = "PlayerItemUnEquip";
 }
