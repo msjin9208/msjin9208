@@ -28,14 +28,17 @@ public class PlayerInfo
         _info._playerJob = PLAYERJOB.Warrior;
         _info._playerLevel = 1;
         _info._playerGold = 100;
+
+        Messenger.AddListener<int, ITEMFUNCTION, float>(Definition.PlayerPurchase, ItemPurchase);
     }
 
-    public void ItemPurchase(int price, ITEMFUNCTION itemFunc, float value)
+    private void ItemPurchase(int price, ITEMFUNCTION itemFunc, float value)
     {
         _info._playerGold -= price;
         var ui = GameObject.FindGameObjectWithTag("SceneUI");
 
         GameManager.Instance.PLAYER.GetComponent<PlayerBase>().UpdatePlayerStateForItem(itemFunc, value);
         Messenger.Broadcast(Definition.RefreshPlayerInfo);
+        
     }
 }

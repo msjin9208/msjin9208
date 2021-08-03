@@ -36,4 +36,8 @@ public class DungeonSceneUI : BaseUI
         base.ScenePreviewEnter();
     }
 
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.RefreshPlayerInfo, RefreshPlayerInfo);
+    }
 }

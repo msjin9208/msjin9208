@@ -15,11 +15,15 @@ public enum ITEMFUNCTION
 public class ItemBase
 {
     [SerializeField] protected Sprite _itemImage;
+
     protected string _itemName;
     protected int _itemPrice;
     protected float _itemFunctionValue;
     protected ITEMFUNCTION _itemFuncion;
+
     protected Button _itemObject;
+
+
 
     public Button _ITEMBUTTON
     {
@@ -60,6 +64,13 @@ public class ItemBase
                 findImage[i].sprite = _itemImage;
         }
 
+        var itemText = _itemObject.GetComponentsInChildren<Text>();
+        itemText[0].text = _itemName;
+        itemText[1].text = _itemPrice.ToString();
+    }
+
+    protected void RefreshItem()
+    {
         var itemText = _itemObject.GetComponentsInChildren<Text>();
         itemText[0].text = _itemName;
         itemText[1].text = _itemPrice.ToString();

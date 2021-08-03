@@ -17,6 +17,10 @@ public class UnitBase : MonoBehaviour
 
     protected UnitStatus _unitStatus;
 
+    public UnitStatus UNITSTATUS
+    {
+        get { return _unitStatus; }
+    }
     
 
     public virtual void InitUnit()

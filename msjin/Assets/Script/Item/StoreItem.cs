@@ -7,7 +7,7 @@ public class StoreItem : ItemBase
 {
     public override void ItemInit(Sprite itemImage, string itemName, int itemPrice, ITEMFUNCTION itemfunc)
     {
-        //_itemImage = itemImage;
+        _itemImage = itemImage;
         _itemName = itemName;
         _itemPrice = itemPrice;
         _itemFuncion = itemfunc;
@@ -17,6 +17,10 @@ public class StoreItem : ItemBase
     }
     protected override void ItemPurchase()
     {
+        var animationing = UIAnimation.Instance.FAILANIMAITION;
+        if (animationing == true)
+            return;
+
         var player = GameManager.Instance.PLAYER;
         var playerGold = player.GetComponent<PlayerBase>().PlayerInfo._info._playerGold;
         if (_itemPrice > playerGold)
@@ -27,7 +31,12 @@ public class StoreItem : ItemBase
         else
         {
             UIAnimation.Instance.FailUI("구매 성공!!!");
-            player.GetComponent<PlayerBase>().PlayerInfo.ItemPurchase(this._itemPrice, this._itemFuncion, this._itemFunctionValue);
+            //player.GetComponent<PlayerBase>().PlayerInfo.ItemPurchase(this._itemPrice, this._itemFuncion, this._itemFunctionValue);
+            Messenger.Broadcast(Definition.PlayerPurchase, this._itemPrice, this._itemFuncion, this._itemFunctionValue);
+            Messenger.Broadcast(Definition.RefreshPlayerInfo);
+
+            this._itemPrice += 10;
+            RefreshItem();
         }
     }
 

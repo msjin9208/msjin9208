@@ -33,7 +33,7 @@ public class PlayerBase : UnitBase
         _unitStatus._attack = _attack;
         _unitStatus._defence = _defence;
         _unitStatus._attackSpeed = _attackSpeed;
-
+        
         // 플레이어 장비 데이터 생성
         _playerEquipment = GetComponent<PlayerEquipment>();
         _playerEquipment.EquipmentInit();
@@ -50,25 +50,27 @@ public class PlayerBase : UnitBase
         switch (itemFunc)
         {
             case ITEMFUNCTION.Attack:
-                _attack += value;
-                Debug.Log(string.Format("공격력 : "  +_attack.ToString()));
+                _unitStatus._attack += value;
+                Messenger.Broadcast(Definition.RefreshPlayerInfoInStore, itemFunc, _unitStatus._attack);
                 break;
             case ITEMFUNCTION.AttackSpeed:
-                _attackSpeed += value;
-                Debug.Log(string.Format("공격 스피드 : " + _attackSpeed.ToString()));
+                _unitStatus._attackSpeed += value;
+                Messenger.Broadcast(Definition.RefreshPlayerInfoInStore, itemFunc, _unitStatus._attackSpeed);
                 break;
             case ITEMFUNCTION.Defence:
-                _defence += value;
-                Debug.Log(string.Format("방어력 : " + _defence.ToString()));
+                _unitStatus._defence += value;
+                Messenger.Broadcast(Definition.RefreshPlayerInfoInStore, itemFunc, _unitStatus._defence);
                 break;
             case ITEMFUNCTION.Hp:
-                _hp  += value;
-                Debug.Log(string.Format("HP : " + _hp.ToString()));
+                _unitStatus._hp += value;
+                Messenger.Broadcast(Definition.RefreshPlayerInfoInStore, itemFunc, _unitStatus._hp);
                 break;
             case ITEMFUNCTION.Mp:
-                _mp += value;
-                Debug.Log(string.Format("MP : " + _mp.ToString()));
+                _unitStatus._mp+= value;
+                Messenger.Broadcast(Definition.RefreshPlayerInfoInStore, itemFunc, _unitStatus._mp);
                 break;
         }
+
+        
     }
 }

@@ -29,7 +29,14 @@ public class SceneMgr : MonoBehaviour
         if(_stackScene == null)
             _stackScene = new Stack<SceneBase>();
 
+
+        Messenger.AddListener(Definition.LoadScene, LoadScene);
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.LoadScene, LoadScene);
     }
     // Start is called before the first frame update
     void Start()
@@ -37,21 +44,22 @@ public class SceneMgr : MonoBehaviour
         _nextScene = null;
         _currentScene = new GameStart();
         _stackScene.Push(_currentScene);
+        _currentScene.InitScene();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_readyToLoad == true)
-        {
-            LoadScene();
-            _readyToLoad = false;  
-        }
-        if(PlayerEntry.Instance._onLoad == true)
-        {
-            _currentScene.ResourceLoad();
-            PlayerEntry.Instance._onLoad = false;
-        }
+        //if(_readyToLoad == true)
+        //{
+        //    LoadScene();
+        //    _readyToLoad = false;  
+        //}
+        //if(PlayerEntry.Instance._onLoad == true)
+        //{
+        //    _currentScene.ResourceLoad();
+        //    PlayerEntry.Instance._onLoad = false;
+        //}
     }
 
     public void ChangeNextScene(SceneBase scene)
@@ -59,7 +67,7 @@ public class SceneMgr : MonoBehaviour
         if(_nextScene == null)
             _nextScene = scene;
 
-        _currentScene.ExitScene();
+        Messenger.Broadcast(Definition.ExitScene);
         _stackScene.Push(_nextScene);
         _currentScene = _stackScene.Peek();
 
@@ -72,9 +80,9 @@ public class SceneMgr : MonoBehaviour
         {
             Debug.Log("더이상 뒤로 갈 수 있는 씬이 없습니다.!");
             return;
-        }    
+        }
 
-        _currentScene.ExitScene();
+        Messenger.Broadcast(Definition.ExitScene);
         _stackScene.Pop();
 
         _currentScene = _stackScene.Peek();
@@ -82,8 +90,11 @@ public class SceneMgr : MonoBehaviour
 
     public void LoadScene()
     {
-        _currentScene.EnterScene();
+        _currentScene.InitScene();
         SceneManager.LoadScene(_currentScene.Scene().ToString());
+
+        Messenger.Broadcast(Definition.EnterScene);
+        //Messenger.Broadcast(Definition.ResoureLoad);
     }
 
 

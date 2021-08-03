@@ -17,7 +17,7 @@ public class Lobby : SceneBase
 
     public override void EnterScene()
     {
-        InitScene();
+        //InitScene();
 
        
         base.EnterScene();

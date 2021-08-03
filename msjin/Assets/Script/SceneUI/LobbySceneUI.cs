@@ -54,5 +54,9 @@ public class LobbySceneUI : BaseUI
         _dungeon = null;
         _inventory = null;
         _store = null;
+
+        Messenger.RemoveListener(Definition.RefreshPlayerInfo, RefreshPlayerInfo);
     }
+
+    
 }

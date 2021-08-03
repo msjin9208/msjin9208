@@ -11,6 +11,9 @@ public class PlayerEntry : MonoBehaviour
     Vector3 _playerEntryPosition;
     Vector3 _playerEndPosition;
     GameObject _player;
+    bool _playerOut = false;
+    bool _playerEnter = false;
+
 
 
     public bool _onLoad = false;
@@ -23,9 +26,16 @@ public class PlayerEntry : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
- 
 
+        Messenger.AddListener(Definition.PlayerEnter, PlayerEnter);
+        Messenger.AddListener(Definition.PlayerOut, PlayerOut);
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.PlayerEnter, PlayerEnter);
+        Messenger.RemoveListener(Definition.PlayerOut, PlayerOut);
     }
 
     private void Start()
@@ -53,7 +63,10 @@ public class PlayerEntry : MonoBehaviour
 
     private IEnumerator PlayerEntryMove()
     {
-        bool _playerEnter = true;
+        if (_playerOut == true)
+            yield return new WaitUntil(() => _playerOut == false);
+
+        _playerEnter = true;
         var rotate = _player.transform.localScale;
         rotate.x = -1;
         _player.transform.localScale = rotate;
@@ -74,11 +87,14 @@ public class PlayerEntry : MonoBehaviour
     }
     private IEnumerator PlayerOutMove()
     {
+        if (_playerEnter == true)
+            yield return new WaitUntil(() => _playerEnter == false);
+
         var rotate = _player.transform.localScale;
         rotate.x = 1;
         _player.transform.localScale = rotate;
+        _playerOut = true;
 
-        bool _playerOut = true;
         while (_playerOut)
         {
             var distance = Vector3.Distance(_player.transform.position, _playerEntryPosition);
@@ -87,7 +103,8 @@ public class PlayerEntry : MonoBehaviour
             else
             {
                 _player.GetComponent<PlayerBase>().PlayerAnimationManager.PlayerAnimation(ANIMATIONSTATE.bRun, false);
-                _onLoad = true;
+                //_onLoad = true;
+                Messenger.Broadcast(Definition.ResoureLoad);
                 _playerOut = false;
                 yield break;
             }

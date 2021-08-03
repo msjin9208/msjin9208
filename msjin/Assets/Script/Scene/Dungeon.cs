@@ -13,7 +13,7 @@ public class Dungeon : SceneBase
 
     public override void EnterScene()
     {
-        InitScene();
+        //InitScene();
         
 
         base.EnterScene();

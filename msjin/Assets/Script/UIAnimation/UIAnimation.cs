@@ -11,6 +11,12 @@ public class UIAnimation : MonoBehaviour
     
 
     private bool _fading = false;
+    private bool _failAnimation = false;
+
+    public bool FAILANIMAITION
+    {
+        get { return _failAnimation; }
+    }
     
     private void Awake()
     {
@@ -19,6 +25,9 @@ public class UIAnimation : MonoBehaviour
             Instance = this;
             Debug.Log("UI 애니메이션 인스턴스 생성 완료!");
         }
+
+        Messenger.AddListener(Definition.FadeIn, FadeIn);
+        Messenger.AddListener(Definition.FadeOut, FadeOut);
 
         FadeSetting();
         DontDestroyOnLoad(gameObject);
@@ -63,7 +72,7 @@ public class UIAnimation : MonoBehaviour
                 _fading = false;
                 Debug.Log("페이드 아웃 완료!");
 
-                SceneMgr.Instance._readyToLoad = true;
+                Messenger.Broadcast(Definition.LoadScene);
                 yield break;
             }
 
@@ -119,6 +128,7 @@ public class UIAnimation : MonoBehaviour
     {
         ui.SetActive(true);
 
+        _failAnimation = true;
         bool animation = true;
         bool fade = false;
         float alphaColor = 0;
@@ -138,6 +148,7 @@ public class UIAnimation : MonoBehaviour
                 alphaColor -= Time.deltaTime;
                 if(alphaColor <= 0)
                 {
+                    _failAnimation = false;
                     animation = false;
                     ui.SetActive(false);
                     yield break;
@@ -153,5 +164,9 @@ public class UIAnimation : MonoBehaviour
         }
     }
 
-   
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.FadeIn, FadeIn);
+        Messenger.RemoveListener(Definition.FadeOut, FadeOut);
+    }
 }

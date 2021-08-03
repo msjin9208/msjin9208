@@ -29,7 +29,6 @@ public class BaseUI : MonoBehaviour
 
     public virtual void SceneEnter(SceneBase scene)
     {
-        
         SceneMgr.Instance.ChangeNextScene(scene);
     }
     public virtual void ScenePreviewEnter()
@@ -38,7 +37,7 @@ public class BaseUI : MonoBehaviour
     }
 
     //보안 생각 해야 돼 나중에 private로 변경해야할수도
-    private void RefreshPlayerInfo()
+    protected void RefreshPlayerInfo()
     {
         var playerNickName = _playerNickName.GetComponentInChildren<Text>();
         var playerLV = _playerLV.GetComponentInChildren<Text>();
@@ -50,5 +49,10 @@ public class BaseUI : MonoBehaviour
         playerLV.text = string.Format("LV : " + playerInfo._info._playerLevel.ToString());
         playerJob.text = string.Format("Job : " + playerInfo._info._playerJob.ToString());
         playerGold.text = string.Format("Gold : " + playerInfo._info._playerGold.ToString());
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }

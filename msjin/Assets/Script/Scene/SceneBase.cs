@@ -14,34 +14,30 @@ public enum SCENENAME
 public class SceneBase
 {
     protected SCENENAME  _sceneName;
-    bool _resourceLoadComplete;
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public virtual void InitScene()
     {
-       
+        Messenger.AddListener(Definition.EnterScene, EnterScene);
+        Messenger.AddListener(Definition.ExitScene, ExitScene);
+        Messenger.AddListener(Definition.ResoureLoad, ResourceLoad);
     }
 
     public virtual void EnterScene()
     {
-        Messenger.Broadcast(Definition.RefreshPlayerInfo);
+        //Messenger.Broadcast(Definition.RefreshPlayerInfo);
+        //ResourceLoad();
     }
     public virtual void ExitScene()
     {
-        PlayerEntry.Instance.PlayerOut();
-        UIAnimation.Instance.FadeOut();
+        Messenger.RemoveListener(Definition.EnterScene, EnterScene);
+        Messenger.RemoveListener(Definition.ExitScene, ExitScene);
+        Messenger.RemoveListener(Definition.ResoureLoad, ResourceLoad);
+
+        
+        Messenger.Broadcast(Definition.PlayerOut);
+        Messenger.Broadcast(Definition.FadeOut);
+        //PlayerEntry.Instance.PlayerOut();
+        //UIAnimation.Instance.FadeOut();
     }
     public virtual SCENENAME Scene()
     {
@@ -49,7 +45,10 @@ public class SceneBase
     }
     public virtual void ResourceLoad()
     {
-        PlayerEntry.Instance.PlayerEnter();
-        UIAnimation.Instance.FadeIn();
+        Messenger.Broadcast(Definition.PlayerEnter);
+        Messenger.Broadcast(Definition.FadeIn);
+        Messenger.Broadcast(Definition.RefreshPlayerInfo);
+        //PlayerEntry.Instance.PlayerEnter();
+        //UIAnimation.Instance.FadeIn();
     }
 }

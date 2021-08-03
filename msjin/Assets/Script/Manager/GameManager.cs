@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
         get { return _playeObject; }
         set { _playeObject = value; }
     }
+    public UnitBase PLAYERBASE
+    {
+        get { return _playerBase; }
+    }
 
     private void Awake()
     {
