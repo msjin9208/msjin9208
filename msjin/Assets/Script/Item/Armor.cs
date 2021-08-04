@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : DropItemBase
+public class Armor : DropItemBase
 {
     public override void ItemInit(Sprite image, string name, float value, int price, int level, ItemType itemtype)
     {
@@ -16,7 +16,6 @@ public class Weapon : DropItemBase
         _itemType = itemtype;
         base.ItemInit(image, name, value, price, level, itemtype);
     }
-
 
 
 }

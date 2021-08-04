@@ -16,12 +16,12 @@ public class PlayerInventory : MonoBehaviour
         _inventoryItem = new InventorySlot[bagLength];
         _inventoryItem = bag.GetComponentsInChildren<InventorySlot>();
 
-        DropItemBase dropItem = new Weapon();
-        DropItemBase dropItem1 = new Weapon();
-        dropItem.ItemInit(null, "Weapon Of Axe", Random.Range(10,100), Random.Range(10, 100), 1);
-        dropItem1.ItemInit(null, "Axe Of Weapon", Random.Range(10, 100), Random.Range(10, 100), 1);
-        GetItem(dropItem);
-        GetItem(dropItem1);
+        DropItemBase weapon = new Weapon();
+        DropItemBase armor = new Armor();
+        weapon.ItemInit(ResourceManager.Instance.weaponSprite, "Weapon Of Axe", Random.Range(10,100), Random.Range(10, 100), 1, ItemType.Weapon);
+        armor.ItemInit(ResourceManager.Instance.armorSprite, "Armor Of A", Random.Range(10, 100), Random.Range(10, 100), 1, ItemType.Armor);
+        GetItem(weapon);
+        GetItem(armor);
     }
 
     private void GetItem(DropItemBase item)

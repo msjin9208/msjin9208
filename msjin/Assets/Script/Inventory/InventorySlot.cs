@@ -60,7 +60,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             if (_itemInfo != null)
             {
                 Debug.Log(_itemInfo.GETITEMNAME);
-                Messenger.Broadcast(Definition.InventoryItemInfoOn, _itemInfo);
+                Messenger.Broadcast(Definition.InventoryItemInfoOn, this);
             }
         }
     }

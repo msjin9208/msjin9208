@@ -20,7 +20,7 @@ public class InventorySceneUI : BaseUI
     public override void SceneUIInit()
     {
         _backBtn.onClick.AddListener(ScenePreviewEnter);
-        Messenger.AddListener<DropItemBase>(Definition.InventoryItemInfoOn, OnClickFunction);
+        Messenger.AddListener<InventorySlot>(Definition.InventoryItemInfoOn, OnClickFunction);
 
 
         base.SceneUIInit();
@@ -43,20 +43,22 @@ public class InventorySceneUI : BaseUI
         _inventorySlotList = null;
     }
 
-    private void OnClickFunction(DropItemBase itemBase)
+    private void OnClickFunction(InventorySlot slot)
     {
         _rectOfItemInfo.SetActive(true);
 
+        var item = slot.ITEMINFO;
 
         var image = _rectOfItemInfo.GetComponentsInChildren<Image>();
-        image[2].sprite = itemBase.GETITEMIMAGE;
+        image[2].sprite = item.GETITEMIMAGE;
         var texts = _rectOfItemInfo.GetComponentsInChildren<Text>();
-        texts[0].text = itemBase.GETITEMNAME;
-        texts[1].text = string.Format("Item Value : " + itemBase.GETITEMFUNCTIONVALUE.ToString());
-        texts[2].text = string.Format("Price : " + itemBase.GETITEMPRICE.ToString());
+        texts[0].text = item.GETITEMNAME;
+        texts[1].text = string.Format("Item Value : " + item.GETITEMFUNCTIONVALUE.ToString());
+        texts[2].text = string.Format("Price : " + item.GETITEMPRICE.ToString());
 
         var buttons = _rectOfItemInfo.GetComponentsInChildren<Button>();
-        //buttons[0].onClick.AddListener(() => itemBase.ItemUse(itemBase.ITEMUSED, itemBase));
+		buttons[0].onClick.AddListener(() => Messenger.Broadcast(Definition.PlayerItemUsed, item));
+        buttons[0].onClick.AddListener(() => _rectOfItemInfo.SetActive(false));
         //buttons[1].onClick.AddListener(itemBase.ItemDestroy);
         buttons[2].onClick.AddListener(() => _rectOfItemInfo.SetActive(false));
     }

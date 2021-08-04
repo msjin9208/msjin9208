@@ -33,20 +33,22 @@ public class PlayerBase : UnitBase
         _unitStatus._attack = _attack;
         _unitStatus._defence = _defence;
         _unitStatus._attackSpeed = _attackSpeed;
-        
+
         // 플레이어 장비 데이터 생성
         _playerEquipment = GetComponent<PlayerEquipment>();
         _playerEquipment.EquipmentInit();
+
         // 플레이어 정보 생성
         _playerInfo = new PlayerInfo();
-        //_playerInfo.playerInfoInit();
+
 
         //플레이어 애니메이터 생성
         _playerAnimation = new PlayerAnimationManager();
 
-        //Messenger.AddListener<ItemUsed, DropItemBase>(Definition.PlayerItemUsed, ItemUsed);
-        //Messenger.AddListener<ItemUsed, DropItemBase>(Definition.PlayerItemUnEquip, ItemUnEquip);
+        //메세지 등록
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
     }
+ 
 
     public void UpdatePlayerStateForItem(ITEMFUNCTION itemFunc, float value)
     {
@@ -74,46 +76,33 @@ public class PlayerBase : UnitBase
                 break;
         }
     }
- //   private void ItemUsed(ItemUsed itemUsed, DropItemBase item)
-	//{
- //       switch (itemUsed)
- //       {
- //           case global::ItemUsed.Weapon:
- //               _unitStatus._attack += item.ITEMFUNCTIONVALUE;
- //               Debug.Log(string.Format("공격력 : " + _unitStatus._attack.ToString()));
- //               break;
- //           case global::ItemUsed.Armor:
- //               break;
- //           case global::ItemUsed.Hand:
- //               break;
- //           case global::ItemUsed.Foot:
- //               break;
- //           case global::ItemUsed.Potion:
- //               break;
- //       }
- //   }
- //   private void ItemUnEquip(ItemUsed itemUsed, DropItemBase item)
-	//{
- //       switch (itemUsed)
- //       {
- //           case global::ItemUsed.Weapon:
- //               _unitStatus._attack -= item.ITEMFUNCTIONVALUE;
- //               Debug.Log(string.Format("공격력 : " + _unitStatus._attack.ToString()));
- //               break;
- //           case global::ItemUsed.Armor:
- //               break;
- //           case global::ItemUsed.Hand:
- //               break;
- //           case global::ItemUsed.Foot:
- //               break;
- //           case global::ItemUsed.Potion:
- //               break;
- //       }
- //   }
+ 
+    private void ItemUse(DropItemBase item)
+	{
+     switch(item.GETITEMTYPE)
+		{
+            case ItemType.Weapon:
+                _attack += item.GETITEMFUNCTIONVALUE;
+                Debug.Log(string.Format("공격력 : " + _attack.ToString()));
+                break;
+            case ItemType.Armor:
+                _defence += item.GETITEMFUNCTIONVALUE;
+                Debug.Log(string.Format("방어력 : " + _defence.ToString()));
+                break;
+            case ItemType.Hand:
+                _attackSpeed += item.GETITEMFUNCTIONVALUE;
+                break;
+            case ItemType.Foot:
+                _defence += item.GETITEMFUNCTIONVALUE;
+                break;
+            case ItemType.Potion:
+                _hp += item.GETITEMFUNCTIONVALUE;
+                break;
+        }
+	}
 
 	private void OnDestroy()
 	{
-        //Messenger.RemoveListener<ItemUsed, DropItemBase>(Definition.PlayerItemUsed, ItemUsed);
-        //Messenger.RemoveListener<ItemUsed, DropItemBase>(Definition.PlayerItemUnEquip, ItemUnEquip);
+        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
     }
 }

@@ -58,7 +58,7 @@ public class DropItemBase
         set { _itemAmount = value; }
     }
 
-    public virtual void ItemInit(Sprite image, string name, float value, int price, int level)
+    public virtual void ItemInit(Sprite image, string name, float value, int price, int level, ItemType itemtype)
     {
 
     }

@@ -16,8 +16,8 @@ public class PlayerEquipment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Messenger.AddListener<ItemUsed, DropItemBase>(Definition.PlayerItemUsed, ItemUsed);
-        //Messenger.AddListener<ItemUsed, DropItemBase>(Definition.PlayerItemUnEquip, ItemUnEquip);
+        //메세지 등록
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
     }
 
     // Update is called once per frame
@@ -52,44 +52,28 @@ public class PlayerEquipment : MonoBehaviour
         _helmat.sprite = null;
     }
 
- //   private void ItemUsed(ItemUsed itemused, DropItemBase item)
-	//{
- //       switch(itemused)
-	//	{
- //           case global::ItemUsed.Weapon:
- //               _weapon.sprite = item.ITEMIMAGE;
- //               break;
- //           case global::ItemUsed.Armor:
- //               break;
- //           case global::ItemUsed.Hand:
- //               break;
- //           case global::ItemUsed.Foot:
- //               break;
- //           case global::ItemUsed.Potion:
- //               break;
- //       }
-	//}
- //   private void ItemUnEquip(ItemUsed itemUsed, DropItemBase item)
- //   {
- //       switch (itemUsed)
- //       {
- //           case global::ItemUsed.Weapon:
- //               _weapon.sprite = null;
- //               break;
- //           case global::ItemUsed.Armor:
- //               break;
- //           case global::ItemUsed.Hand:
- //               break;
- //           case global::ItemUsed.Foot:
- //               break;
- //           case global::ItemUsed.Potion:
- //               break;
- //       }
- //   }
+    private void ItemUse(DropItemBase item)
+    {
+        switch (item.GETITEMTYPE)
+        {
+            case ItemType.Weapon:
+                _weapon.sprite = item.GETITEMIMAGE;
+                break;
+            case ItemType.Armor:
+                _body.sprite = item.GETITEMIMAGE;
+                break;
+            case ItemType.Hand:
+                _shield.sprite = item.GETITEMIMAGE;
+                break;
+            case ItemType.Foot:
+                _rfoot.sprite = item.GETITEMIMAGE;
+                _lfoot.sprite = item.GETITEMIMAGE;
+                break;
+        }
+    }
 
- //   private void OnDestroy()
- //   {
- //       Messenger.RemoveListener<ItemUsed, DropItemBase>(Definition.PlayerItemUsed, ItemUsed);
- //       Messenger.RemoveListener<ItemUsed, DropItemBase>(Definition.PlayerItemUnEquip, ItemUnEquip);
- //   }
+	private void OnDestroy()
+	{
+        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+    }
 }
