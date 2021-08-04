@@ -2,22 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
 
 public class UIAnimation : MonoBehaviour
 {
     public static UIAnimation Instance;
     public GameObject _fadePanel;
+
     [SerializeField] GameObject _failUI;
-    
+    [SerializeField] GameObject _yesOrNoPopUp;
 
     private bool _fading = false;
     private bool _failAnimation = false;
+
+    public GameObject YESORNOPOPUP
+    {
+        get { return _yesOrNoPopUp; }
+    }
 
     public bool FAILANIMAITION
     {
         get { return _failAnimation; }
     }
-    
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,6 +36,9 @@ public class UIAnimation : MonoBehaviour
 
         Messenger.AddListener(Definition.FadeIn, FadeIn);
         Messenger.AddListener(Definition.FadeOut, FadeOut);
+        //Messenger.AddListener<string, bool, ItemUsed, DropItemBase>(Definition.YesOrNoPOPUP, YesOrNoPopUp);
+
+        
 
         FadeSetting();
         DontDestroyOnLoad(gameObject);
@@ -57,17 +68,17 @@ public class UIAnimation : MonoBehaviour
         image.a = 1f;
         _fadePanel.GetComponent<Image>().color = image;
     }
-    
+
     private IEnumerator FadeOutCoroutine()
     {
         _fading = true;
-        
+
         _fadePanel.SetActive(true);
         _fadePanel.layer = 1;
         while (_fading)
         {
             var colorAlpha = _fadePanel.GetComponent<Image>().color;
-            if(colorAlpha.a >= 1)
+            if (colorAlpha.a >= 1)
             {
                 _fading = false;
                 Debug.Log("페이드 아웃 완료!");
@@ -137,16 +148,16 @@ public class UIAnimation : MonoBehaviour
             var color = ui.GetComponent<Image>().color;
             var textcolor = text.color;
 
-            if(alphaColor <= 1 && fade == false)
+            if (alphaColor <= 1 && fade == false)
                 alphaColor += Time.deltaTime;
-            else if(alphaColor >= 0)
+            else if (alphaColor >= 0)
             {
                 if (fade == false)
                     yield return new WaitForSeconds(0.5f);
 
                 fade = true;
                 alphaColor -= Time.deltaTime;
-                if(alphaColor <= 0)
+                if (alphaColor <= 0)
                 {
                     _failAnimation = false;
                     animation = false;
@@ -159,14 +170,30 @@ public class UIAnimation : MonoBehaviour
             text.color = textcolor;
             color.a = alphaColor;
             ui.GetComponent<Image>().color = color;
-            
+
             yield return null;
         }
     }
 
-    private void OnDestroy()
-    {
-        Messenger.RemoveListener(Definition.FadeIn, FadeIn);
-        Messenger.RemoveListener(Definition.FadeOut, FadeOut);
-    }
+    //private void YesOrNoPopUp(string text, bool stackItem, ItemUsed itemUsed , DropItemBase item)
+    //{
+    //    _yesOrNoPopUp.SetActive(true);
+
+    //    var _text = _yesOrNoPopUp.GetComponentInChildren<Text>();
+    //    var _buttons = _yesOrNoPopUp.GetComponentsInChildren<Button>();
+
+    //    _text.text = text;
+    //    if(stackItem == false)
+    //    {
+    //        _buttons[0].onClick.AddListener(() => Messenger.Broadcast(Definition.DestroyItem, item));
+    //        _buttons[0].onClick.AddListener(() => _yesOrNoPopUp.SetActive(false));
+    //    }
+    //    _buttons[1].onClick.AddListener(() => _yesOrNoPopUp.SetActive(false));
+    //}
+    //private void OnDestroy()
+    //{
+    //    Messenger.RemoveListener(Definition.FadeIn, FadeIn);
+    //    Messenger.RemoveListener(Definition.FadeOut, FadeOut);
+    //    Messenger.RemoveListener<string, bool, ItemUsed, DropItemBase>(Definition.YesOrNoPOPUP, YesOrNoPopUp);
+    //}
 }

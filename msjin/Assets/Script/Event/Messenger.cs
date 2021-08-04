@@ -217,6 +217,12 @@ static internal class Messenger
         OnListenerAdding(eventType, handler);
         eventTable[eventType] = (Callback<T, U, V>)eventTable[eventType] + handler;
     }
+
+    static public void AddListener<T, U, V, Z>(string eventType, Callback<T, U, V, Z> handler)
+    {
+        OnListenerAdding(eventType, handler);
+        eventTable[eventType] = (Callback<T, U, V, Z>)eventTable[eventType] + handler;
+    }
     #endregion // AddListener
 
     #region RemoveListener
@@ -249,6 +255,13 @@ static internal class Messenger
     {
         OnListenerRemoving(eventType, handler);
         eventTable[eventType] = (Callback<T, U, V>)eventTable[eventType] - handler;
+        OnListenerRemoved(eventType);
+    }
+
+    static public void RemoveListener<T, U, V, Z>(string eventType, Callback<T, U, V, Z> handler)
+    {
+        OnListenerRemoving(eventType, handler);
+        eventTable[eventType] = (Callback<T, U, V, Z>)eventTable[eventType] - handler;
         OnListenerRemoved(eventType);
     }
     #endregion // RemoveListener
@@ -349,8 +362,33 @@ static internal class Messenger
             }
         }
     }
-    #endregion // Broadcast
+    
+
+    static public void Broadcast<T, U, V, Z>(string eventType, T arg1, U arg2, V arg3, Z arg4)
+    {
+#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
+		Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
+#endif
+        OnBroadcasting(eventType);
+
+        Delegate d;
+        if (eventTable.TryGetValue(eventType, out d))
+        {
+            Callback<T, U, V, Z> callback = d as Callback<T, U, V, Z>;
+
+            if (callback != null)
+            {
+                callback(arg1, arg2, arg3, arg4);
+            }
+            else
+            {
+                throw CreateBroadcastSignatureException(eventType);
+            }
+        }
+    }
+#endregion // Broadcast
 }
+
 
 //This manager will ensure that the messenger's eventTable will be cleaned up upon loading of a new level.
 public sealed class MessengerHelper : MonoBehaviour

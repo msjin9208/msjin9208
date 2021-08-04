@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ItemUsed
+public enum ItemType
 {
     Weapon,
     Armor,
@@ -12,69 +12,55 @@ public enum ItemUsed
     Potion
 }
 
-public struct ItemInfo
-{
-    public ItemUsed itemUsed;
-    public Sprite itemImage;
-    public string itemName;
-    public float itemFunctionValue;
-    public int itemPrice;
-    public bool Used;
-}
 public class DropItemBase
 {
-    protected ItemInfo _itemInfo;
-    public bool USED
-	{
-		get { return _itemInfo.Used; }
-	}
-    public ItemUsed ITEMUSED
+    protected Sprite _itemImage;
+    protected string _itemName;
+    protected float _itemFunctionValue;
+    protected int _itemPrice;
+    protected int _itemLevel;
+    protected int _itemAmount;
+    protected bool _stackItem = false;
+
+    protected ItemType _itemType;
+
+    public Sprite GETITEMIMAGE
     {
-        get { return _itemInfo.itemUsed; }
+        get { return _itemImage; }
     }
-    public Sprite ITEMIMAGE
+    public string GETITEMNAME
     {
-        get { return _itemInfo.itemImage; }
+        get { return _itemName; }
     }
-    public string ITEMNAME
+    public float GETITEMFUNCTIONVALUE
     {
-        get { return _itemInfo.itemName; }
+        get { return _itemFunctionValue; }
     }
-    public float ITEMFUNCTIONVALUE
+    public int GETITEMPRICE
     {
-        get { return _itemInfo.itemFunctionValue; }
+        get { return _itemPrice; }
     }
-    public int ITEMPRICE
+    public int GETITEMLEVEL
     {
-        get { return _itemInfo.itemPrice; }
+        get { return _itemLevel; }
+    }
+    public bool GETSTACK
+    {
+        get { return _stackItem; }
+    }
+    public ItemType GETITEMTYPE
+    {
+        get { return _itemType; }
+    }
+    public int GETITEMAMOUNT
+    {
+        get { return _itemAmount; }
+        set { _itemAmount = value; }
     }
 
-    public virtual void  ItemInit()
+    public virtual void ItemInit(Sprite image, string name, float value, int price, int level)
     {
-        _itemInfo.itemImage = ResourceManager.Instance.sprite;
-        _itemInfo.itemName = "AXE!";
-        _itemInfo.itemPrice = 100;
-        _itemInfo.itemFunctionValue = 20;
+
     }
 
-    public virtual void ItemUse(ItemUsed itemUsed, DropItemBase item)
-    {
-        Debug.Log("¿Â¬¯!!!!!!!");
-
-        if (USED == false)
-        {
-            Messenger.Broadcast(Definition.PlayerItemUsed, itemUsed, item);
-            _itemInfo.Used = true;
-        }
-        else
-		{
-            Messenger.Broadcast(Definition.PlayerItemUnEquip, itemUsed, item);
-            _itemInfo.Used = false;
-		}
-    }
-
-    public virtual void ItemDestroy()
-    {
-        Debug.Log("ªË¡¶!!!!!!!");
-    }
 }

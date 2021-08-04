@@ -24,4 +24,9 @@ public class Definition
     //플레이어 인벤토리
     public const string PlayerItemUsed = "PlayerItemUsed";
     public const string PlayerItemUnEquip = "PlayerItemUnEquip";
+    public const string DestroyItem = "DestroyItem";
+
+    //팝업
+    public const string YesOrNoPOPUP = "YesOrNoPOPUP";
+    public const string InventoryItemInfoOn = "InventoryItemInfoOn";
 }
