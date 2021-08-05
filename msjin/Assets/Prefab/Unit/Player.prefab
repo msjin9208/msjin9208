@@ -29,7 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec44fb3db9ddf54c926a67360826972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventorySlot: {fileID: 0}
+  _bag: {fileID: 5965869124378554791, guid: 9d2ecf1503779ea47a6dbb13567c422f, type: 3}
 --- !u!114 &4954476413023253777
 MonoBehaviour:
   m_ObjectHideFlags: 0

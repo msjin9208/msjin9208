@@ -10,7 +10,7 @@ public class InventorySceneUI : BaseUI
     [SerializeField] GameObject _ItemInfoMenu;
     [SerializeField] Canvas _sceneCanvas;
 
-    private List<Button> _inventorySlotList;
+    //private List<Button> _inventorySlotList;
     private InventorySlot _currenSlot;
 
 
@@ -18,18 +18,25 @@ public class InventorySceneUI : BaseUI
     private void Start()
     {
         _currenSlot = null;
-        _inventorySlotList = new List<Button>();
-        GameManager.Instance.PLAYER.GetComponent<PlayerInventory>().InventoryInit(_bag);
+        //_inventorySlotList = new List<Button>();
+        
+
         _ItemInfoMenu.SetActive(false);
         SceneUIInit();
     }
     public override void SceneUIInit()
     {
-        _backBtn.onClick.AddListener(ScenePreviewEnter);
-        Messenger.AddListener<InventorySlot>(Definition.InventoryItemInfoOn, OnClickFunction);
+        _backBtn.onClick.AddListener(()=> 
+        { 
+            Messenger.Broadcast(Definition.InventorySceneEnter, _sceneCanvas);
+            ScenePreviewEnter();
+        });
 
 
-        base.SceneUIInit();
+		//메시지 등록
+        Messenger.Broadcast(Definition.InventorySceneEnter, _sceneCanvas);
+		Messenger.AddListener<InventorySlot>(Definition.InventoryItemInfoOn, OnClickFunction);
+		base.SceneUIInit();
     }
 
     public override void SceneEnter(SceneBase scene)
@@ -43,11 +50,7 @@ public class InventorySceneUI : BaseUI
         base.ScenePreviewEnter();
     }
 
-    private void OnDestroy()
-    {
-        Messenger.RemoveListener(Definition.RefreshPlayerInfo, RefreshPlayerInfo);
-        _inventorySlotList = null;
-    }
+
 
     private void OnClickFunction(InventorySlot slot)
     {
@@ -114,5 +117,13 @@ public class InventorySceneUI : BaseUI
             _currenSlot.UnEquipImageSetting();
             popup.SetActive(false);
         });
+    }
+
+
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.RefreshPlayerInfo, RefreshPlayerInfo);
+        Messenger.RemoveListener<InventorySlot>(Definition.InventoryItemInfoOn, OnClickFunction);
     }
 }

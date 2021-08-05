@@ -9,14 +9,42 @@ public class PlayerInventory : MonoBehaviour
 {
     private InventorySlot[] _inventoryItem;
     private int _stackMaxSize = 20;
+    [SerializeField] GameObject _bag;
+    GameObject _cloneBag;
 
     private void Start()
     {
         Messenger.AddListener(Definition.InventorySort, InventorySort);
+        Messenger.AddListener<Canvas>(Definition.InventorySceneEnter, InventorySceneEnter);
+
+        _cloneBag = GameObject.Instantiate(_bag);
+        _cloneBag.SetActive(false);
+        InventoryInit(_cloneBag);
+
+
+        _cloneBag.transform.SetParent(GameManager.Instance.PLAYER.transform);
+        _cloneBag.SetActive(false);
+        //DontDestroyOnLoad(_cloneBag);
+        //DontDestroyOnLoad(gameObject);
     }
 
-    public void InventoryInit(GameObject bag)
+    private void InventoryInit(GameObject bag)
     {
+        if (_inventoryItem != null)
+		{
+            for(int i = 0; i < _inventoryItem.Length; i++)
+			{
+                if(_inventoryItem[i].ITEMINFO !=null)
+				{
+                    _inventoryItem[i].SetItemInInventory(_inventoryItem[i].ITEMINFO);
+				}
+                else
+                    _inventoryItem[i].SetItemInInventory(null);
+            }
+
+            return;
+		}
+
         var bagLength = bag.GetComponentsInChildren<InventorySlot>().Length;
         _inventoryItem = new InventorySlot[bagLength];
         _inventoryItem = bag.GetComponentsInChildren<InventorySlot>();
@@ -121,8 +149,27 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    private void InventorySceneEnter(Canvas parents)
+	{
+		var bagParent = _cloneBag.transform.parent;
+
+		if (bagParent != parents.transform)
+		{
+			_cloneBag.SetActive(true);
+			_cloneBag.transform.SetParent(parents.transform);
+			_cloneBag.transform.localPosition = Vector3.zero;
+            _cloneBag.transform.localScale = new Vector3(1, 1, 1);
+		}
+		else
+		{
+            _cloneBag.transform.SetParent(GameManager.Instance.PLAYER.transform);
+            _cloneBag.SetActive(false);
+		}
+
+	}
     private void OnDestroy()
     {
         Messenger.AddListener(Definition.InventorySort, InventorySort);
+        Messenger.AddListener<Canvas>(Definition.InventorySceneEnter, InventorySceneEnter);
     }
 }

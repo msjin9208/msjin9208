@@ -26,6 +26,7 @@ public class Definition
     public const string PlayerItemUnEquip = "PlayerItemUnEquip";
     public const string RemoveItem = "RemoveItem";
     public const string InventorySort = "InventorySort";
+    public const string InventorySceneEnter = "InventorySceneEnter";
 
     //ÆË¾÷
     public const string YesOrNoPOPUP = "YesOrNoPOPUP";

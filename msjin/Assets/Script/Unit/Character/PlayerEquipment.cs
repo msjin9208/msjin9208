@@ -80,6 +80,7 @@ public class PlayerEquipment : MonoBehaviour
                 
         }
 
+        
         item.GETITEMEQUIPALREADY = true;
     }
 

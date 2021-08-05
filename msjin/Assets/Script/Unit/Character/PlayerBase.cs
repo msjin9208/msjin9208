@@ -43,6 +43,7 @@ public class PlayerBase : UnitBase
         //플레이어 애니메이터 생성
         _playerAnimation = new PlayerAnimationManager();
 
+
         //메세지 등록
         Messenger.AddListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
         Messenger.AddListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
