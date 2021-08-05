@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public enum ItemType
 {
     Weapon,
+    Sheild,
+    Helmet,
     Armor,
-    Hand,
     Foot,
+    Hair,
     Potion
 }
 
@@ -21,6 +23,7 @@ public class DropItemBase
     protected int _itemLevel;
     protected int _itemAmount;
     protected bool _stackItem = false;
+    protected bool _itemEquipAlready = false;
 
     protected ItemType _itemType;
 
@@ -57,7 +60,11 @@ public class DropItemBase
         get { return _itemAmount; }
         set { _itemAmount = value; }
     }
-
+    public bool GETITEMEQUIPALREADY
+    {
+        get { return _itemEquipAlready; }
+        set { _itemEquipAlready = value; }
+    }
     public virtual void ItemInit(Sprite image, string name, float value, int price, int level, ItemType itemtype)
     {
 

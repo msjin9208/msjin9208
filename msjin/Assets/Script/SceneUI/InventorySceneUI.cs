@@ -7,14 +7,20 @@ public class InventorySceneUI : BaseUI
 {
     [SerializeField] Button _backBtn;
     [SerializeField] GameObject _bag;
-    [SerializeField] GameObject _rectOfItemInfo;
+    [SerializeField] GameObject _ItemInfoMenu;
+    [SerializeField] Canvas _sceneCanvas;
 
     private List<Button> _inventorySlotList;
+    private InventorySlot _currenSlot;
+
+
+
     private void Start()
     {
+        _currenSlot = null;
         _inventorySlotList = new List<Button>();
         GameManager.Instance.PLAYER.GetComponent<PlayerInventory>().InventoryInit(_bag);
-        _rectOfItemInfo.SetActive(false);
+        _ItemInfoMenu.SetActive(false);
         SceneUIInit();
     }
     public override void SceneUIInit()
@@ -45,21 +51,68 @@ public class InventorySceneUI : BaseUI
 
     private void OnClickFunction(InventorySlot slot)
     {
-        _rectOfItemInfo.SetActive(true);
+        InventorySlot _prevSlot = null;
+        if (_currenSlot != slot && _currenSlot != null && _currenSlot.ITEMINFO.GETITEMEQUIPALREADY == false)
+        {
+            _currenSlot.UnEquipImageSetting();
+        }
 
-        var item = slot.ITEMINFO;
+        if(_currenSlot != null)
+        {
+            _prevSlot = _currenSlot;
+        }
+        _currenSlot = slot;
 
-        var image = _rectOfItemInfo.GetComponentsInChildren<Image>();
+        var popup = _ItemInfoMenu;
+        popup.SetActive(true);
+        var item = _currenSlot.ITEMINFO;
+
+        var image = popup.GetComponentsInChildren<Image>();
         image[2].sprite = item.GETITEMIMAGE;
-        var texts = _rectOfItemInfo.GetComponentsInChildren<Text>();
+        var texts = popup.GetComponentsInChildren<Text>();
         texts[0].text = item.GETITEMNAME;
         texts[1].text = string.Format("Item Value : " + item.GETITEMFUNCTIONVALUE.ToString());
         texts[2].text = string.Format("Price : " + item.GETITEMPRICE.ToString());
 
-        var buttons = _rectOfItemInfo.GetComponentsInChildren<Button>();
-		buttons[0].onClick.AddListener(() => Messenger.Broadcast(Definition.PlayerItemUsed, item));
-        buttons[0].onClick.AddListener(() => _rectOfItemInfo.SetActive(false));
-        //buttons[1].onClick.AddListener(itemBase.ItemDestroy);
-        buttons[2].onClick.AddListener(() => _rectOfItemInfo.SetActive(false));
+        var buttons = popup.GetComponentsInChildren<Button>();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].onClick.RemoveAllListeners();
+        }
+
+        buttons[0].onClick.AddListener(() => {
+            if (item.GETITEMEQUIPALREADY == true)
+            {
+                Messenger.Broadcast(Definition.PlayerItemUnEquip, item);
+                _currenSlot.UnEquipImageSetting();
+            }
+            else
+            {
+                if (_prevSlot != null
+                    && _prevSlot.ITEMINFO.GETITEMEQUIPALREADY == true
+                    && _prevSlot.ITEMINFO.GETITEMTYPE == _currenSlot.ITEMINFO.GETITEMTYPE)
+                {
+                    _prevSlot.UnEquipImageSetting();
+                }
+
+                Messenger.Broadcast(Definition.PlayerItemUsed, item);
+                _currenSlot.EquipImageSetting();
+            }
+                
+            popup.SetActive(false);
+        });
+
+        buttons[1].onClick.AddListener(()=> {
+            var text = "아이템을 삭제하시겠습니까?";
+            Messenger.Broadcast(Definition.YesOrNoPOPUP, text, _currenSlot);
+            
+            popup.SetActive(false);
+        });
+
+        buttons[2].onClick.AddListener(() =>
+        {
+            _currenSlot.UnEquipImageSetting();
+            popup.SetActive(false);
+        });
     }
 }

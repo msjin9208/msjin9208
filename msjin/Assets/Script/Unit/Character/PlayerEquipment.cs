@@ -18,6 +18,8 @@ public class PlayerEquipment : MonoBehaviour
     {
         //메세지 등록
         Messenger.AddListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
+        EquipmentInit();
     }
 
     // Update is called once per frame
@@ -59,21 +61,59 @@ public class PlayerEquipment : MonoBehaviour
             case ItemType.Weapon:
                 _weapon.sprite = item.GETITEMIMAGE;
                 break;
+            case ItemType.Sheild:
+                _shield.sprite = item.GETITEMIMAGE;
+                break;
             case ItemType.Armor:
                 _body.sprite = item.GETITEMIMAGE;
                 break;
-            case ItemType.Hand:
-                _shield.sprite = item.GETITEMIMAGE;
+            case ItemType.Helmet:
+                _helmat.sprite = item.GETITEMIMAGE;
+                break;
+            case ItemType.Hair:
+                _hair.sprite = item.GETITEMIMAGE;
                 break;
             case ItemType.Foot:
                 _rfoot.sprite = item.GETITEMIMAGE;
                 _lfoot.sprite = item.GETITEMIMAGE;
                 break;
+                
         }
+
+        item.GETITEMEQUIPALREADY = true;
+    }
+
+    private void UnEquip(DropItemBase item)
+    {
+        switch (item.GETITEMTYPE)
+            {
+            case ItemType.Weapon:
+                _weapon.sprite = null;
+                break;
+            case ItemType.Sheild:
+                _shield.sprite = null;
+                break;
+            case ItemType.Armor:
+                _body.sprite = null;
+                break;
+            case ItemType.Helmet:
+                _helmat.sprite = null;
+                break;
+            case ItemType.Hair:
+                _hair.sprite = null;
+                break;
+            case ItemType.Foot:
+                _rfoot.sprite = null;
+                _lfoot.sprite = null;
+                break;
+        }
+
+        item.GETITEMEQUIPALREADY = false;
     }
 
 	private void OnDestroy()
 	{
         Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
     }
 }

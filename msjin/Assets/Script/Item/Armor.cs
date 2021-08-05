@@ -14,6 +14,7 @@ public class Armor : DropItemBase
 
         _stackItem = false;
         _itemType = itemtype;
+        _itemEquipAlready = false;
         base.ItemInit(image, name, value, price, level, itemtype);
     }
 

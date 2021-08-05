@@ -15,16 +15,18 @@ public class UIAnimation : MonoBehaviour
 
     private bool _fading = false;
     private bool _failAnimation = false;
+    private bool _yesOrNoPOPUPOn = false;
 
-    public GameObject YESORNOPOPUP
+    public bool YESORNOPOPUP
     {
-        get { return _yesOrNoPopUp; }
+        get { return _yesOrNoPOPUPOn; }
     }
 
     public bool FAILANIMAITION
     {
         get { return _failAnimation; }
     }
+    
 
     private void Awake()
     {
@@ -34,11 +36,10 @@ public class UIAnimation : MonoBehaviour
             Debug.Log("UI 애니메이션 인스턴스 생성 완료!");
         }
 
+        //메세지 등록
         Messenger.AddListener(Definition.FadeIn, FadeIn);
         Messenger.AddListener(Definition.FadeOut, FadeOut);
-        //Messenger.AddListener<string, bool, ItemUsed, DropItemBase>(Definition.YesOrNoPOPUP, YesOrNoPopUp);
-
-        
+        Messenger.AddListener<string, InventorySlot>(Definition.YesOrNoPOPUP, YesOrNoPopUp);
 
         FadeSetting();
         DontDestroyOnLoad(gameObject);
@@ -175,25 +176,35 @@ public class UIAnimation : MonoBehaviour
         }
     }
 
-    //private void YesOrNoPopUp(string text, bool stackItem, ItemUsed itemUsed , DropItemBase item)
-    //{
-    //    _yesOrNoPopUp.SetActive(true);
+    private void YesOrNoPopUp(string text,InventorySlot slot)
+    {
+        _yesOrNoPOPUPOn = true;
 
-    //    var _text = _yesOrNoPopUp.GetComponentInChildren<Text>();
-    //    var _buttons = _yesOrNoPopUp.GetComponentsInChildren<Button>();
+        _yesOrNoPopUp.SetActive(true);
 
-    //    _text.text = text;
-    //    if(stackItem == false)
-    //    {
-    //        _buttons[0].onClick.AddListener(() => Messenger.Broadcast(Definition.DestroyItem, item));
-    //        _buttons[0].onClick.AddListener(() => _yesOrNoPopUp.SetActive(false));
-    //    }
-    //    _buttons[1].onClick.AddListener(() => _yesOrNoPopUp.SetActive(false));
-    //}
-    //private void OnDestroy()
-    //{
-    //    Messenger.RemoveListener(Definition.FadeIn, FadeIn);
-    //    Messenger.RemoveListener(Definition.FadeOut, FadeOut);
-    //    Messenger.RemoveListener<string, bool, ItemUsed, DropItemBase>(Definition.YesOrNoPOPUP, YesOrNoPopUp);
-    //}
+        var _text = _yesOrNoPopUp.GetComponentInChildren<Text>();
+        var _buttons = _yesOrNoPopUp.GetComponentsInChildren<Button>();
+
+        for(int i = 0; i < _buttons.Length; i++)
+            _buttons[i].onClick.RemoveAllListeners();
+
+        _text.text = text;
+        _buttons[0].onClick.AddListener(() =>
+        {
+            slot.RemoveItem();
+            _yesOrNoPOPUPOn = false;
+            _yesOrNoPopUp.SetActive(false);
+        });
+        _buttons[1].onClick.AddListener(() => 
+        {
+            _yesOrNoPOPUPOn = false;
+            _yesOrNoPopUp.SetActive(false);
+         });
+    }
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.FadeIn, FadeIn);
+        Messenger.RemoveListener(Definition.FadeOut, FadeOut);
+        Messenger.RemoveListener<string, InventorySlot>(Definition.YesOrNoPOPUP, YesOrNoPopUp);
+    }
 }
