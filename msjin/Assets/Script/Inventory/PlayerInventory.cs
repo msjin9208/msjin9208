@@ -39,7 +39,11 @@ public class PlayerInventory : MonoBehaviour
                     _inventoryItem[i].SetItemInInventory(_inventoryItem[i].ITEMINFO);
 				}
                 else
+                {
+                    
+                    
                     _inventoryItem[i].SetItemInInventory(null);
+                }
             }
 
             return;

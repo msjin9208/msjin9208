@@ -36,6 +36,8 @@ public class InventorySceneUI : BaseUI
 		//메시지 등록
         Messenger.Broadcast(Definition.InventorySceneEnter, _sceneCanvas);
 		Messenger.AddListener<InventorySlot>(Definition.InventoryItemInfoOn, OnClickFunction);
+        //아이템이 삭제 됐을 때 인벤토리 소트해주는 절차에서 현재 갖고 있던 슬롯 정보를 초기화 해준다.;
+        Messenger.AddListener(Definition.InventorySort, () => _currenSlot = null);
 		base.SceneUIInit();
     }
 
@@ -55,9 +57,19 @@ public class InventorySceneUI : BaseUI
     private void OnClickFunction(InventorySlot slot)
     {
         InventorySlot _prevSlot = null;
+        var popup = _ItemInfoMenu;
         if (_currenSlot != slot && _currenSlot != null && _currenSlot.ITEMINFO.GETITEMEQUIPALREADY == false)
         {
             _currenSlot.UnEquipImageSetting();
+        }
+        else if(_currenSlot != null && slot == _currenSlot)
+        {
+            if(_currenSlot.ITEMINFO.GETITEMEQUIPALREADY == false)
+                slot.UnEquipImageSetting();
+            
+            popup.SetActive(false);
+            _currenSlot = null;
+            return;
         }
 
         if(_currenSlot != null)
@@ -66,7 +78,7 @@ public class InventorySceneUI : BaseUI
         }
         _currenSlot = slot;
 
-        var popup = _ItemInfoMenu;
+        
         popup.SetActive(true);
         var item = _currenSlot.ITEMINFO;
 
@@ -100,6 +112,7 @@ public class InventorySceneUI : BaseUI
 
                 Messenger.Broadcast(Definition.PlayerItemUsed, item);
                 _currenSlot.EquipImageSetting();
+                _currenSlot = null;
             }
                 
             popup.SetActive(false);
@@ -123,7 +136,11 @@ public class InventorySceneUI : BaseUI
 
     private void OnDestroy()
     {
+        if (_currenSlot != null)
+            _currenSlot.UnEquipImageSetting();
+
         Messenger.RemoveListener(Definition.RefreshPlayerInfo, RefreshPlayerInfo);
         Messenger.RemoveListener<InventorySlot>(Definition.InventoryItemInfoOn, OnClickFunction);
+        Messenger.RemoveListener(Definition.InventorySort, () => _currenSlot = null);
     }
 }

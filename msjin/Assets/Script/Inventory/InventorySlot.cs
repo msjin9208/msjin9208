@@ -9,11 +9,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     DropItemBase _itemInfo = null;
     private int _itemAmount = 0;
     private int _slotIndex = 0;
-    private bool _uiOn;
+    private bool _onClickItem;
 
     Sprite _itemImage = null;
     [SerializeField] Image _dotImage;
 
+    #region 파라미터
     public DropItemBase ITEMINFO
     {
         get { return _itemInfo; }
@@ -33,7 +34,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         get { return _itemImage; }
         set { _itemImage = value; }
     }
-
+    #endregion
 
     public void SlotInit(int index)
     {
@@ -45,6 +46,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         _dotImage.gameObject.SetActive(false);
     }
 
+    #region 세팅 슬롯
     public void SetItemInInventory(DropItemBase item)
     {
         if(item == null)
@@ -56,11 +58,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             var image = GetComponentsInChildren<Image>();
             var imagecolor = image[1].color;
             imagecolor.a = 0;
-            image[1].color = imagecolor;
             image[1].sprite = _itemImage;
-
-            UnEquipImageSetting();
-
+            image[1].color = imagecolor;
             return;
         }
 
@@ -93,7 +92,9 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             UnEquipImageSetting();
         }
     }
+    #endregion
 
+    #region 클릭 이벤트
     public void OnPointerClick(PointerEventData eventData)
     {
         bool popOn = UIAnimation.Instance.YESORNOPOPUP;
@@ -104,23 +105,27 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log("클릭클릭!!");
 
-            var slotImage = GetComponentsInChildren<Image>();
-            var color = slotImage[1].color;
-            color.a = 0.5f;
-            slotImage[1].color = color;
-            slotImage[1].sprite = _itemImage;
+           
 
             if (_itemInfo != null)
             {
+                var slotImage = GetComponentsInChildren<Image>();
+                var color = slotImage[1].color;
+                color.a = 0.5f;
+                slotImage[1].color = color;
+                slotImage[1].sprite = _itemImage;
+
                 Debug.Log(_itemInfo.GETITEMNAME);
                 Messenger.Broadcast(Definition.InventoryItemInfoOn, this);
             }
         }
     }
+    #endregion
 
+    #region 아이템 삭제
     public void RemoveItem()
     {
-        if (_itemInfo == null)
+        if (_itemInfo == null )
             return;
 
         if (_itemInfo.GETITEMEQUIPALREADY == true)
@@ -145,7 +150,9 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
         Messenger.Broadcast(Definition.InventorySort);
     }
+    #endregion
 
+    #region 이미지 세팅
     public void EquipImageSetting()
     {
         _dotImage.gameObject.SetActive(true);
@@ -164,4 +171,5 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         slotImage[1].color = color;
         slotImage[1].sprite = _itemImage;
     }
+    #endregion
 }
