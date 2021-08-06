@@ -12,6 +12,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] GameObject _bag;
     GameObject _cloneBag;
 
+    public InventorySlot[] ITEMLIST
+    {
+        get { return _inventoryItem; }
+    }
+
     private void Start()
     {
         Messenger.AddListener(Definition.InventorySort, InventorySort);
@@ -24,8 +29,6 @@ public class PlayerInventory : MonoBehaviour
 
         _cloneBag.transform.SetParent(GameManager.Instance.PLAYER.transform);
         _cloneBag.SetActive(false);
-        //DontDestroyOnLoad(_cloneBag);
-        //DontDestroyOnLoad(gameObject);
     }
 
     private void InventoryInit(GameObject bag)
@@ -66,8 +69,8 @@ public class PlayerInventory : MonoBehaviour
         {
             DropItemBase weapon = new Weapon();
             DropItemBase armor = new Armor();
-            weapon.ItemInit(ResourceManager.Instance.weaponSprite, "Weapon Of Axe", Random.Range(10, 100), Random.Range(10, 100), 1, ItemType.Weapon);
-            armor.ItemInit(ResourceManager.Instance.armorSprite, "Armor Of A", Random.Range(10, 100), Random.Range(10, 100), 1, ItemType.Armor);
+            weapon.ItemInit(ResourceManager.Instance.weaponSprite, "Weapon Of Axe", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Weapon);
+            armor.ItemInit(ResourceManager.Instance.armorSprite, "Armor Of A", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Armor);
             GetItem(weapon);
             GetItem(armor);
         }

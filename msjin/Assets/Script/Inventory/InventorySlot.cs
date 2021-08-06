@@ -133,7 +133,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
         if(_itemInfo.GETSTACK == true)
         {
-            _itemInfo.GETITEMAMOUNT--;
+            _itemAmount++;
             return;
         }
 

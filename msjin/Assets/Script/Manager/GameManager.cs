@@ -7,14 +7,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private GameObject _playeObject;
-    private UnitBase _playerBase;
+    private PlayerBase _playerBase;
 
     public GameObject PLAYER
     {
         get { return _playeObject; }
         set { _playeObject = value; }
     }
-    public UnitBase PLAYERBASE
+    public PlayerBase PLAYERBASE
     {
         get { return _playerBase; }
     }

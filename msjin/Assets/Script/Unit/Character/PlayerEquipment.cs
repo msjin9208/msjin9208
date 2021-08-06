@@ -17,7 +17,7 @@ public class PlayerEquipment : MonoBehaviour
     void Start()
     {
         //메세지 등록
-        Messenger.AddListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemEquip, ItemUse);
         Messenger.AddListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
         EquipmentInit();
     }
@@ -56,24 +56,24 @@ public class PlayerEquipment : MonoBehaviour
 
     private void ItemUse(DropItemBase item)
     {
-        switch (item.GETITEMTYPE)
+        switch (item.GETEQUIPTYPE)
         {
-            case ItemType.Weapon:
+            case EquipType.Weapon:
                 _weapon.sprite = item.GETITEMIMAGE;
                 break;
-            case ItemType.Sheild:
+            case EquipType.Sheild:
                 _shield.sprite = item.GETITEMIMAGE;
                 break;
-            case ItemType.Armor:
+            case EquipType.Armor:
                 _body.sprite = item.GETITEMIMAGE;
                 break;
-            case ItemType.Helmet:
+            case EquipType.Helmet:
                 _helmat.sprite = item.GETITEMIMAGE;
                 break;
-            case ItemType.Hair:
+            case EquipType.Hair:
                 _hair.sprite = item.GETITEMIMAGE;
                 break;
-            case ItemType.Foot:
+            case EquipType.Foot:
                 _rfoot.sprite = item.GETITEMIMAGE;
                 _lfoot.sprite = item.GETITEMIMAGE;
                 break;
@@ -86,24 +86,24 @@ public class PlayerEquipment : MonoBehaviour
 
     private void UnEquip(DropItemBase item)
     {
-        switch (item.GETITEMTYPE)
+        switch (item.GETEQUIPTYPE)
             {
-            case ItemType.Weapon:
+            case EquipType.Weapon:
                 _weapon.sprite = null;
                 break;
-            case ItemType.Sheild:
+            case EquipType.Sheild:
                 _shield.sprite = null;
                 break;
-            case ItemType.Armor:
+            case EquipType.Armor:
                 _body.sprite = null;
                 break;
-            case ItemType.Helmet:
+            case EquipType.Helmet:
                 _helmat.sprite = null;
                 break;
-            case ItemType.Hair:
+            case EquipType.Hair:
                 _hair.sprite = null;
                 break;
-            case ItemType.Foot:
+            case EquipType.Foot:
                 _rfoot.sprite = null;
                 _lfoot.sprite = null;
                 break;
@@ -114,7 +114,7 @@ public class PlayerEquipment : MonoBehaviour
 
 	private void OnDestroy()
 	{
-        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemEquip, ItemUse);
         Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
     }
 }

@@ -56,7 +56,6 @@ public class InventorySceneUI : BaseUI
 
     private void OnClickFunction(InventorySlot slot)
     {
-        InventorySlot _prevSlot = null;
         var popup = _ItemInfoMenu;
         if (_currenSlot != slot && _currenSlot != null && _currenSlot.ITEMINFO.GETITEMEQUIPALREADY == false)
         {
@@ -72,12 +71,7 @@ public class InventorySceneUI : BaseUI
             return;
         }
 
-        if(_currenSlot != null)
-        {
-            _prevSlot = _currenSlot;
-        }
         _currenSlot = slot;
-
         
         popup.SetActive(true);
         var item = _currenSlot.ITEMINFO;
@@ -103,14 +97,7 @@ public class InventorySceneUI : BaseUI
             }
             else
             {
-                if (_prevSlot != null
-                    && _prevSlot.ITEMINFO.GETITEMEQUIPALREADY == true
-                    && _prevSlot.ITEMINFO.GETITEMTYPE == _currenSlot.ITEMINFO.GETITEMTYPE)
-                {
-                    _prevSlot.UnEquipImageSetting();
-                }
-
-                Messenger.Broadcast(Definition.PlayerItemUsed, item);
+                Messenger.Broadcast(Definition.PlayerItemEquip, item);
                 _currenSlot.EquipImageSetting();
                 _currenSlot = null;
             }

@@ -21,12 +21,16 @@ public class Definition
     public const string PlayerPurchase = "PlayerPurchase";
     public const string RefreshPlayerInfoInStore = "RefreshPlayerInfoInStore";
 
-    //플레이어 인벤토리
-    public const string PlayerItemUsed = "PlayerItemUsed";
+    //플레이어 아이템 사용
+    public const string PlayerItemEquip = "PlayerItemUsed";
     public const string PlayerItemUnEquip = "PlayerItemUnEquip";
-    public const string RemoveItem = "RemoveItem";
+    public const string UsePotion = "UsePotion";
+    public const string UseEquipItemRankUp = "UseEquipItemRankUp";
+
+    //인벤토리
     public const string InventorySort = "InventorySort";
     public const string InventorySceneEnter = "InventorySceneEnter";
+    
 
     //팝업
     public const string YesOrNoPOPUP = "YesOrNoPOPUP";

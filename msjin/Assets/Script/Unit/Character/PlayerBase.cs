@@ -45,11 +45,11 @@ public class PlayerBase : UnitBase
 
 
         //메세지 등록
-        Messenger.AddListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemEquip, ItemUse);
         Messenger.AddListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
     }
- 
 
+    #region 상점 아이템
     public void UpdatePlayerStateForItem(ITEMFUNCTION itemFunc, float value)
     {
         switch (itemFunc)
@@ -76,7 +76,9 @@ public class PlayerBase : UnitBase
                 break;
         }
     }
+    #endregion
 
+    #region 아이템 착용 및 사용
     private void ItemUse(DropItemBase item)
     {
         if (item.GETITEMEQUIPALREADY == true)
@@ -85,75 +87,83 @@ public class PlayerBase : UnitBase
         var alreadyEquipItem = FindAlreadyEquipmentITem(item);
 
         if(alreadyEquipItem != null)
+        {
             UnEquip(alreadyEquipItem);
-
-         switch(item.GETITEMTYPE)
-		  {
-                case ItemType.Weapon:
-                    _attack += item.GETITEMFUNCTIONVALUE;
-                    Debug.Log(string.Format("공격력 : " + _attack.ToString()));
-                    break;
-                case ItemType.Sheild:
-                    _attackSpeed += item.GETITEMFUNCTIONVALUE;
-                    break;
-                case ItemType.Armor:
-                    _defence += item.GETITEMFUNCTIONVALUE;
-                    Debug.Log(string.Format("방어력 : " + _defence.ToString()));
-                    break;
-            case ItemType.Helmet:
-                _attackSpeed += item.GETITEMFUNCTIONVALUE;
-                break;
-            case ItemType.Hair:
-                _attackSpeed += item.GETITEMFUNCTIONVALUE;
-                break;
-            case ItemType.Foot:
-                    _defence += item.GETITEMFUNCTIONVALUE;
-                    break;
-                case ItemType.Potion:
-                    _hp += item.GETITEMFUNCTIONVALUE;
-                    break;
+            
         }
+
+        AddItemStatus(item.GETEQUIPTYPE, item.GETITEMFUNCTIONVALUE);
+
 
         item.GETITEMEQUIPALREADY = true;
         _currentEquipItemList.Add(item);
 	}
+    private void AddItemStatus(EquipType type, float value)
+    {
+        switch (type)
+        {
+            case EquipType.Weapon:
+                _attack += value;
+                Debug.Log(string.Format("공격력 : " + _attack.ToString()));
+                break;
+            case EquipType.Sheild:
+                _attackSpeed += value;
+                break;
+            case EquipType.Armor:
+                _defence += value;
+                Debug.Log(string.Format("방어력 : " + _defence.ToString()));
+                break;
+            case EquipType.Helmet:
+                _attackSpeed += value;
+                break;
+            case EquipType.Hair:
+                _attackSpeed += value;
+                break;
+            case EquipType.Foot:
+                _defence += value;
+                break;
+        }
+    }
+    #endregion
 
+    #region 아이템 해제
     private void UnEquip(DropItemBase item)
     {
         if (item.GETITEMEQUIPALREADY == false)
             return;
 
-        switch (item.GETITEMTYPE)
-        {
-            case ItemType.Weapon:
-                _attack -= item.GETITEMFUNCTIONVALUE;
-                Debug.Log(string.Format("공격력 : " + _attack.ToString()));
-                break;
-            case ItemType.Armor:
-                _defence -= item.GETITEMFUNCTIONVALUE;
-                Debug.Log(string.Format("방어력 : " + _defence.ToString()));
-                break;
-            case ItemType.Sheild:
-                _attackSpeed -= item.GETITEMFUNCTIONVALUE;
-                break;
-            case ItemType.Helmet:
-                _attackSpeed -= item.GETITEMFUNCTIONVALUE;
-                break;
-            case ItemType.Hair:
-                _attackSpeed -= item.GETITEMFUNCTIONVALUE;
-                break;
-            case ItemType.Foot:
-                _defence -= item.GETITEMFUNCTIONVALUE;
-                break;
-            case ItemType.Potion:
-                _hp -= item.GETITEMFUNCTIONVALUE;
-                break;
-        }
+        MinusItemStatus(item.GETEQUIPTYPE, item.GETITEMFUNCTIONVALUE);
+
 
         item.GETITEMEQUIPALREADY = false;
         _currentEquipItemList.Remove(item);
     }
-
+    private void MinusItemStatus(EquipType type, float value)
+    {
+        switch (type)
+        {
+            case EquipType.Weapon:
+                _attack -= value;
+                Debug.Log(string.Format("공격력 : " + _attack.ToString()));
+                break;
+            case EquipType.Sheild:
+                _attackSpeed -= value;
+                break;
+            case EquipType.Armor:
+                _defence -= value;
+                Debug.Log(string.Format("방어력 : " + _defence.ToString()));
+                break;
+            case EquipType.Helmet:
+                _attackSpeed -= value;
+                break;
+            case EquipType.Hair:
+                _attackSpeed -= value;
+                break;
+            case EquipType.Foot:
+                _defence -= value;
+                break;
+        }
+    }
 
     private DropItemBase FindAlreadyEquipmentITem(DropItemBase item)
     {
@@ -162,16 +172,17 @@ public class PlayerBase : UnitBase
 
         foreach(var foundItem in _currentEquipItemList)
         {
-            if (foundItem.GETITEMTYPE == item.GETITEMTYPE)
+            if (foundItem.GETEQUIPTYPE == item.GETEQUIPTYPE)
                 return foundItem;
         }
-
-        return null;
+                return null;
     }
+    #endregion
 
-	private void OnDestroy()
+
+    private void OnDestroy()
 	{
-        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUsed, ItemUse);
+        Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemEquip, ItemUse);
         Messenger.RemoveListener<DropItemBase>(Definition.PlayerItemUnEquip, UnEquip);
     }
 }
