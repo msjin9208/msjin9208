@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
- 
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StageBattleSetting(List<UnitBase> stageMonster)

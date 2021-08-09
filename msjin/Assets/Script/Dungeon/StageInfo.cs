@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+    
 public class StageInfo : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Sprite _onImage;
@@ -32,11 +34,18 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
 
     private void EnterStage()
     {
-        MonsterSetting();
+
     }
+
      private void MonsterSetting()
     {
-
+        Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/Unit/Orc.prefab").Completed += 
+            (AsyncOperationHandle<GameObject> obj)=>
+            {
+                var monster = obj.Result.GetComponent<UnitBase>();
+                monster.InitUnit();
+                _stageMonsterInfo.Add(monster);
+            };
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -46,6 +55,7 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
             Debug.Log("스테이지 넘버 : " + _stageNumber.ToString());
             if(_stageOpen == true)
             {
+                MonsterSetting();
                 BattleManager.Instance.StageBattleSetting(_stageMonsterInfo);
             }
         }
