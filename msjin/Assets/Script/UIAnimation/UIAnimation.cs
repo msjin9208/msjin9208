@@ -191,10 +191,12 @@ public class UIAnimation : MonoBehaviour
         _text.text = text;
         _buttons[0].onClick.AddListener(() =>
         {
+            GameManager.Instance.PLAYERBASE.PlayerInfo._info._playerGold += slot.ITEMINFO.GETITEMPRICE;
+            Messenger.Broadcast(Definition.RefreshPlayerInfo);
+
             slot.RemoveItem();
             _yesOrNoPOPUPOn = false;
 
-            GameManager.Instance.PLAYERBASE.PlayerInfo._info._playerGold += slot.ITEMINFO.GETITEMPRICE;
             _yesOrNoPopUp.SetActive(false);
         });
         _buttons[1].onClick.AddListener(() => 

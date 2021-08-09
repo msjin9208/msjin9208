@@ -29,6 +29,13 @@ public class PlayerInventory : MonoBehaviour
 
         _cloneBag.transform.SetParent(GameManager.Instance.PLAYER.transform);
         _cloneBag.SetActive(false);
+
+        DropItemBase weapon = new Weapon();
+        DropItemBase armor = new Armor();
+        weapon.ItemInit(ResourceManager.Instance.weaponSprite, "Weapon Of Axe", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Weapon);
+        armor.ItemInit(ResourceManager.Instance.armorSprite, "Armor Of A", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Armor);
+        GetItem(weapon);
+        GetItem(armor);
     }
 
     private void InventoryInit(GameObject bag)
@@ -43,8 +50,6 @@ public class PlayerInventory : MonoBehaviour
 				}
                 else
                 {
-                    
-                    
                     _inventoryItem[i].SetItemInInventory(null);
                 }
             }
@@ -60,19 +65,6 @@ public class PlayerInventory : MonoBehaviour
         {
             _inventoryItem[i].SlotInit(i);
             _inventoryItem[i].SetItemInInventory(null);
-        }
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            DropItemBase weapon = new Weapon();
-            DropItemBase armor = new Armor();
-            weapon.ItemInit(ResourceManager.Instance.weaponSprite, "Weapon Of Axe", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Weapon);
-            armor.ItemInit(ResourceManager.Instance.armorSprite, "Armor Of A", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Armor);
-            GetItem(weapon);
-            GetItem(armor);
         }
     }
 

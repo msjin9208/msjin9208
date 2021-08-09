@@ -64,6 +64,13 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
             {
                 MonsterSetting();
                 BattleManager.Instance.StageBattleSetting(_stageMonsterInfo);
+
+                Addressables.LoadAssetAsync<SceneBase>("Assets/Scenes/InDungeon.unity").Completed +=
+                    (AsyncOperationHandle<SceneBase> scene) =>
+                    {
+                        var scenes = scene.Result;
+                        scenes.EnterScene();
+                    };
             }
         }
 

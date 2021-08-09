@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField] public Sprite weaponSprite;
     [SerializeField] public Sprite armorSprite;
+
+    List<Sprite> _weaponSpriteList;
 
     private void Awake()
     {

@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Weapon
+  m_EditorClassIdentifier: 
+  m_GroupName: Weapon
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d5e348fa09fbf0a41a0c15000cf6ec94
+  m_SerializeEntries:
+  - m_GUID: f17058e2bd3c44745bd37eb71c41adf1
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Axe_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b8a3f9debf9a740ebba84d95c6700721
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Bow_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5364a532c77cd43bc8549a556cb49758
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Shield_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8d2e32343359643008ec8b92017bbf89
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Soon_Spear.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e4c07de1d80de4718b58db6470c48501
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Spear_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: df96032537d4c482e9b20c674c73dc45
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Sword_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 400f84ca50ac94f20a75a7ecfbe2cfe8
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Sword_2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 6d883a2fc76fd4137ad47f5150294d01
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Sword_3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f9cdd1844b02d4c81989b265d121a78a
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Sword_4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 9794293e4605a44d0826e3814ddc8431
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Sword_5.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 30e47371660a44f038c174865e5af8d3
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Sword_6.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b1c6b014ee8384bde8873e80c5b3784c
+    m_Address: Assets/Resource/SPUM/SPUM_Sprites/Items/6_Weapons/Ward_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: be78b12a9746512478a341969a8d530c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3e6cb24eb3b7b0d4c9b97997a412e5ad, type: 2}
+    - {fileID: 11400000, guid: 41adbc4b4c6402e4b8ddd66b763d7581, type: 2}

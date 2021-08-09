@@ -2,8 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum WeaponType
+{
+    Axe,
+    Bow,
+    Wand
+}
 public class Weapon : DropItemBase
 {
+    WeaponType _weaponType = WeaponType.Axe;
+
+    public WeaponType WEAPONTYPE
+    {
+        get { return _weaponType; }
+    }
+
     public override void ItemInit(Sprite image, string name, float value, int price, int level, EquipType itemtype)
     {
         _itemName = name;
@@ -17,6 +31,9 @@ public class Weapon : DropItemBase
 
         _itemType = ItemType.Equip;
         _EquipType = itemtype;
+        
+
+        
 
         base.ItemInit(image, name, value, price, level, itemtype);
     }

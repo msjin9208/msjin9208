@@ -91,7 +91,7 @@ public class SceneMgr : MonoBehaviour
     public void LoadScene()
     {
         _currentScene.InitScene();
-        SceneManager.LoadScene(_currentScene.Scene().ToString());
+        SceneManager.LoadSceneAsync(_currentScene.Scene().ToString());
 
         Messenger.Broadcast(Definition.EnterScene);
         //Messenger.Broadcast(Definition.ResoureLoad);

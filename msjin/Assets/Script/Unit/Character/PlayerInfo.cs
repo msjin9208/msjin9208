@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PLAYERJOB
 {
+    Citizen,
     Warrior,
     Magic,
     Thief
@@ -24,12 +25,15 @@ public class PlayerInfo
 
     public PlayerInfo()
     {
-        _info._playerNickName = "Mun Su Jin";
-        _info._playerJob = PLAYERJOB.Warrior;
+        _info._playerNickName = "Player";
+        _info._playerJob = PLAYERJOB.Citizen;
         _info._playerLevel = 1;
         _info._playerGold = 100;
 
         Messenger.AddListener<int, ITEMFUNCTION, float>(Definition.PlayerPurchase, ItemPurchase);
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemEquip, SelectJob);
+        Messenger.AddListener<DropItemBase>(Definition.PlayerItemUnEquip, InitJob);
+
     }
 
     private void ItemPurchase(int price, ITEMFUNCTION itemFunc, float value)
@@ -39,6 +43,29 @@ public class PlayerInfo
 
         GameManager.Instance.PLAYER.GetComponent<PlayerBase>().UpdatePlayerStateForItem(itemFunc, value);
         Messenger.Broadcast(Definition.RefreshPlayerInfo);
-        
+    }
+    private void SelectJob(DropItemBase item)
+    {
+        var weapon = (Weapon)item;
+
+        switch(weapon.WEAPONTYPE)
+        {
+            case WeaponType.Axe:
+                _info._playerJob = PLAYERJOB.Warrior;
+                break;
+            case WeaponType.Bow:
+                _info._playerJob = PLAYERJOB.Thief;
+                break;
+            case WeaponType.Wand:
+                _info._playerJob = PLAYERJOB.Magic;
+                break;
+        }
+
+        Messenger.Broadcast(Definition.RefreshPlayerInfo);
+    }
+    private void InitJob(DropItemBase item)
+    {
+        _info._playerJob = PLAYERJOB.Citizen;
+        Messenger.Broadcast(Definition.RefreshPlayerInfo);
     }
 }
