@@ -52,6 +52,13 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
     {
         if(eventData.button == PointerEventData.InputButton.Left)
         {
+            var player = GameManager.Instance.PLAYER.GetComponent<PlayerEquipment>();
+            if(player.WEAPON.sprite == null)
+            {
+                UIAnimation.Instance.FailUI("무기를 착용해주세요");
+                return;
+            }
+
             Debug.Log("스테이지 넘버 : " + _stageNumber.ToString());
             if(_stageOpen == true)
             {
