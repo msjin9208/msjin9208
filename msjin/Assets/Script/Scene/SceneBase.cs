@@ -8,7 +8,8 @@ public enum SCENENAME
     Lobby,
     Dungeon,
     Inventory,
-    Store
+    Store,
+    InDungeon
 }
 
 public class SceneBase

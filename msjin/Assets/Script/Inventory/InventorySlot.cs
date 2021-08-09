@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     Sprite _itemImage = null;
     [SerializeField] Image _dotImage;
 
-    #region 파라미터
+    #region 프로퍼티
     public DropItemBase ITEMINFO
     {
         get { return _itemInfo; }

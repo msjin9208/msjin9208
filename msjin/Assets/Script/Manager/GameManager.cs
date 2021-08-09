@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject _playeObject;
     private PlayerBase _playerBase;
+    private int _playerDungeonStageClearInfo;
 
     public GameObject PLAYER
     {
@@ -17,6 +18,10 @@ public class GameManager : MonoBehaviour
     public PlayerBase PLAYERBASE
     {
         get { return _playerBase; }
+    }
+    public int PLAYERCLEARSTAGE
+    {
+        get { return _playerDungeonStageClearInfo; }
     }
 
     private void Awake()
