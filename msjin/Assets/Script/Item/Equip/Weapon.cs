@@ -1,41 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement;
 
 
 public enum WeaponType
 {
+    Sword,
     Axe,
     Bow,
     Wand
 }
+[CreateAssetMenu(fileName = "Weapon", menuName = "Item / Weapon", order = int.MaxValue)]
 public class Weapon : DropItemBase
 {
-    WeaponType _weaponType = WeaponType.Axe;
+    [SerializeField]private float _AttackSpeed;
+    [SerializeField] WeaponType _weaponType;
+
+    public float WEAPONATTACKSPEED
+    {
+        get { return _AttackSpeed; }
+    }
 
     public WeaponType WEAPONTYPE
     {
         get { return _weaponType; }
     }
 
-    public override void ItemInit(Sprite image, string name, float value, int price, int level, EquipType itemtype)
+    public override void ItemInit()
     {
-        _itemName = name;
-        _itemImage = image;
-        _itemFunctionValue = value;
-        _itemPrice = price;
-        _itemLevel = level;
+        _itemEquipAlready = false;   
 
-        _stackItem = false;
-        _itemEquipAlready = false;
-
-        _itemType = ItemType.Equip;
-        _EquipType = itemtype;
-        
-
-        
-
-        base.ItemInit(image, name, value, price, level, itemtype);
+        base.ItemInit();
     }
 
 

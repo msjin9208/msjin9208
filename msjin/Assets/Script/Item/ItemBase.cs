@@ -12,6 +12,7 @@ public enum ITEMFUNCTION
     AttackSpeed
 }
 
+
 public class ItemBase
 {
     [SerializeField] protected Sprite _itemImage;

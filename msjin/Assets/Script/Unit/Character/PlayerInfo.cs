@@ -46,6 +46,9 @@ public class PlayerInfo
     }
     private void SelectJob(DropItemBase item)
     {
+        if (item.GETEQUIPTYPE != EquipType.Weapon)
+            return;
+
         var weapon = (Weapon)item;
 
         switch(weapon.WEAPONTYPE)
@@ -65,7 +68,12 @@ public class PlayerInfo
     }
     private void InitJob(DropItemBase item)
     {
+        if (item.GETEQUIPTYPE != EquipType.Weapon)
+            return;
+
         _info._playerJob = PLAYERJOB.Citizen;
         Messenger.Broadcast(Definition.RefreshPlayerInfo);
     }
+
+    
 }

@@ -18,25 +18,51 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] public Sprite weaponSprite;
     [SerializeField] public Sprite armorSprite;
 
-    List<Sprite> _weaponSpriteList;
 
+    [SerializeField]private Dictionary<string, DropItemBase> _weaponDic;
+
+    public Dictionary<string, DropItemBase> WEAPONITEM
+    {
+        get { return _weaponDic; }
+    }
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
 
+        _weaponDic = new Dictionary<string, DropItemBase>();
+        WeaponSetting();
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void ResoureLoad<T>(string addressable , T arg)
     {
+        StartCoroutine(Load(addressable, arg));
+    }
+    
+    private IEnumerator Load<T>(string addressable, T arg)
+    {
+        Addressables.LoadAssetAsync<T>(addressable).Completed += 
+            (rescource)=>
+            {
+                arg = rescource.Result;
+            };
         
+        return new WaitUntil(()=>  arg != null);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void WeaponSetting()
     {
-  
+        var weapons = Resources.LoadAll("Item/Weapon");
+        for(int i = 0; i < weapons.Length; i++)
+        {
+            _weaponDic.Add(weapons[i].name, (DropItemBase)weapons[i]);
+        }
+
+        var etor = _weaponDic.GetEnumerator();
+        while(etor.MoveNext())
+        {
+            etor.Current.Value.ItemInit();
+        }
     }
 }

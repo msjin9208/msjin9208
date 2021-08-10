@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public enum EquipType
 {
+    NONE,
     Weapon,
     Sheild,
     Helmet,
@@ -14,12 +15,14 @@ public enum EquipType
 }
 public enum PotionType
 {
+    NONE,
     HP,
     MP
 }
 
 public enum ScrollType
 {
+    NONE,
     Weapon,
     Sheild,
     Helmet,
@@ -33,20 +36,21 @@ public enum ItemType
     Scroll
 }
 
-public class DropItemBase
-{
-    protected Sprite _itemImage;
-    protected string _itemName;
-    protected float _itemFunctionValue;
-    protected int _itemPrice;
-    protected int _itemLevel;
-    protected bool _stackItem = false;
-    protected bool _itemEquipAlready = false;
 
-    protected ItemType _itemType;
-    protected EquipType _EquipType;
-    protected ScrollType _scrollType;
-    protected PotionType _potionType;
+public class DropItemBase : ScriptableObject
+{
+    [SerializeField] protected Sprite _itemImage;
+    [SerializeField] protected string _itemName;
+    [SerializeField] protected float _itemFunctionValue;
+    [SerializeField] protected int _itemPrice;
+    [SerializeField] protected int _itemLevel;
+    [SerializeField] protected bool _stackItem = false;
+    [SerializeField] protected bool _itemEquipAlready = false;
+
+    [SerializeField] protected ItemType _itemType;
+    [SerializeField] protected EquipType _EquipType;
+    [SerializeField] protected ScrollType _scrollType;
+    [SerializeField] protected PotionType _potionType;
 
 
     public Sprite GETITEMIMAGE
@@ -83,7 +87,7 @@ public class DropItemBase
         get { return _itemEquipAlready; }
         set { _itemEquipAlready = value; }
     }
-    public virtual void ItemInit(Sprite image, string name, float value, int price, int level, EquipType itemtype)
+    public virtual void ItemInit()
     {
 
     }

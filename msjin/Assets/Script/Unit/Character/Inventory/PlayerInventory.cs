@@ -25,17 +25,15 @@ public class PlayerInventory : MonoBehaviour
         _cloneBag = GameObject.Instantiate(_bag);
         _cloneBag.SetActive(false);
         InventoryInit(_cloneBag);
-
-
         _cloneBag.transform.SetParent(GameManager.Instance.PLAYER.transform);
         _cloneBag.SetActive(false);
 
-        DropItemBase weapon = new Weapon();
-        DropItemBase armor = new Armor();
-        weapon.ItemInit(ResourceManager.Instance.weaponSprite, "Weapon Of Axe", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Weapon);
-        armor.ItemInit(ResourceManager.Instance.armorSprite, "Armor Of A", Random.Range(10, 100), Random.Range(10, 100), 1, EquipType.Armor);
-        GetItem(weapon);
-        GetItem(armor);
+        var weapons = ResourceManager.Instance.WEAPONITEM.GetEnumerator();
+        while(weapons.MoveNext())
+        {
+            GetItem(weapons.Current.Value);
+        }
+
     }
 
     private void InventoryInit(GameObject bag)
@@ -168,7 +166,8 @@ public class PlayerInventory : MonoBehaviour
 	}
     private void OnDestroy()
     {
-        Messenger.AddListener(Definition.InventorySort, InventorySort);
-        Messenger.AddListener<Canvas>(Definition.InventorySceneEnter, InventorySceneEnter);
+        _inventoryItem = null;
+        Messenger.RemoveListener(Definition.InventorySort, InventorySort);
+        Messenger.RemoveListener<Canvas>(Definition.InventorySceneEnter, InventorySceneEnter);
     }
 }
