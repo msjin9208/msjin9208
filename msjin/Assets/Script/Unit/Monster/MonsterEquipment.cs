@@ -15,10 +15,10 @@ public class MonsterEquipment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EquipmentInit();
+        
     }
 
-    public void EquipmentInit()
+    public void EquipmentInit(DropItemBase item)
     {
         var renderer = GetComponentsInChildren<SpriteRenderer>();
         for (int i = 0; i < renderer.Length; i++)
@@ -39,12 +39,17 @@ public class MonsterEquipment : MonoBehaviour
                 _hair = renderer[i];
         }
 
-        _weapon.sprite = null;
+        _weapon.sprite = item.GETITEMIMAGE;
         _shield.sprite = null;
         _helmat.sprite = null;
+
     }
+
+
+
 
     private void OnDestroy()
     {
+
     }
 }

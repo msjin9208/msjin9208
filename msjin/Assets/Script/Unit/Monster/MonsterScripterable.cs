@@ -22,6 +22,10 @@ public class MonsterScripterable : ScriptableObject
     [SerializeField] float _mp;
     [SerializeField] MonsterJob _monsterJob;
     
+    public GameObject MONSTEROBJECT
+    {
+        get { return _monster; }
+    }
     public MonsterBase MONSTERBASE
     {
         get { return _monsterBase; }

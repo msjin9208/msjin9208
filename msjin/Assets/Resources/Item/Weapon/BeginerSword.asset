@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeginerSword
   m_EditorClassIdentifier: 
   _itemImage: {fileID: 21300000, guid: 30e47371660a44f038c174865e5af8d3, type: 3}
-  _itemName: BeginerSword
+  _itemName: Beginer Sword
   _itemFunctionValue: 6
   _itemPrice: 4
   _itemLevel: 1

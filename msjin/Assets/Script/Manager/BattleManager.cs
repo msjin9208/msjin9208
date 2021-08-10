@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
 
     private List<UnitBase> _stageMonsterInfo;
     private Dictionary<string, MonsterScripterable> _monsterDic;
+    private GameObject _monseter;
 
     private void Awake()
     {
@@ -22,7 +23,13 @@ public class BattleManager : MonoBehaviour
 
     public void StageBattleSetting(List<UnitBase> stageMonster)
     {
-        _stageMonsterInfo = stageMonster;
+        //º¯°æÇØ¾ß µÅ
+
+        MonsterScripterable monster;
+        _monsterDic.TryGetValue("Orc", out monster);
+        _monseter = GameObject.Instantiate(monster.MONSTEROBJECT, new Vector3(0,0,0), Quaternion.identity);
+
+        //_stageMonsterInfo = stageMonster;
     }
 
     private void LoadMonsterData()
