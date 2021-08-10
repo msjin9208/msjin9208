@@ -13,6 +13,7 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
     private bool _stageClear;
     private bool _stageOpen;
     private int _stageNumber;
+    private InDungeon _indungeon;
 
     private List<UnitBase> _stageMonsterInfo;
 
@@ -65,12 +66,8 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
                 MonsterSetting();
                 BattleManager.Instance.StageBattleSetting(_stageMonsterInfo);
 
-                Addressables.LoadAssetAsync<SceneBase>("Assets/Scenes/InDungeon.unity").Completed +=
-                    (AsyncOperationHandle<SceneBase> scene) =>
-                    {
-                        var scenes = scene.Result;
-                        scenes.EnterScene();
-                    };
+                _indungeon = new InDungeon();
+                SceneMgr.Instance.ChangeNextScene(_indungeon);
             }
         }
 

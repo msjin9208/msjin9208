@@ -91,12 +91,14 @@ public class SceneMgr : MonoBehaviour
     public void LoadScene()
     {
         _currentScene.InitScene();
-        SceneManager.LoadSceneAsync(_currentScene.Scene().ToString());
+        StartCoroutine(SceneLoadComplete());
 
         Messenger.Broadcast(Definition.EnterScene);
-        //Messenger.Broadcast(Definition.ResoureLoad);
     }
-
-
    
+    private IEnumerator SceneLoadComplete()
+    {
+        var sceneLoad = SceneManager.LoadSceneAsync(_currentScene.Scene().ToString());
+        return new WaitUntil(()=> sceneLoad != null);
+    }
 }

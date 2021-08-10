@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Store.unity
     guid: e875ab9bc60588247822f029c5a17643
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/InDungeon.unity
     guid: 29a4940d88274f745a92d9619042beb2
   m_configObjects:

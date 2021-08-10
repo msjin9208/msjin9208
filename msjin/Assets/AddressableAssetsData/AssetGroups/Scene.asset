@@ -16,13 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: fe18ade547534994db1df15ff0dea01f
-  m_SerializeEntries:
-  - m_GUID: 29a4940d88274f745a92d9619042beb2
-    m_Address: Assets/Scenes/InDungeon.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: be78b12a9746512478a341969a8d530c, type: 2}
   m_SchemaSet:
