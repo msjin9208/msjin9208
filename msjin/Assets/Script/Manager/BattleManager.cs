@@ -23,7 +23,7 @@ public class BattleManager : MonoBehaviour
 
     public void StageBattleSetting(List<UnitBase> stageMonster)
     {
-        //변경해야 돼
+        //변경해야 돼 여기서 세팅만 해주고 씬 로드할 때 클론하고 SetActive 해주고 페이드 인 해줘야할 듯
 
         MonsterScripterable monster;
         _monsterDic.TryGetValue("Orc", out monster);
