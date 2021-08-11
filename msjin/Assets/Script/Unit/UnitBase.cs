@@ -16,6 +16,7 @@ public class UnitBase : MonoBehaviour
     }
 
     protected UnitStatus _unitStatus;
+    protected bool _death = false;
 
     public UnitStatus UNITSTATUS
     {

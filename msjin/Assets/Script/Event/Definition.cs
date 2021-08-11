@@ -35,4 +35,8 @@ public class Definition
     //ÆË¾÷
     public const string YesOrNoPOPUP = "YesOrNoPOPUP";
     public const string InventoryItemInfoOn = "InventoryItemInfoOn";
+
+    //´øÀü
+    public const string SetMonster = "SetMonster";
+    public const string MonsterEntry = "MonsterEntry";
 }

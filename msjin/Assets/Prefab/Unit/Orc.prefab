@@ -84,7 +84,7 @@ PrefabInstance:
       objectReference: {fileID: 4904820597163386700, guid: a7b6100d923644d0687436562baa3118, type: 3}
     - target: {fileID: 2805380862094096055, guid: ed8c5bbf2089a1b45b149d2da099fbd4, type: 3}
       propertyPath: m_Name
-      value: MonsterBase
+      value: Orc
       objectReference: {fileID: 0}
     - target: {fileID: 3787611320438545765, guid: ed8c5bbf2089a1b45b149d2da099fbd4, type: 3}
       propertyPath: m_Sprite
@@ -94,6 +94,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -5765676957383193058, guid: a7b6100d923644d0687436562baa3118, type: 3}
+    - target: {fileID: 4613899289502228055, guid: ed8c5bbf2089a1b45b149d2da099fbd4, type: 3}
+      propertyPath: m_Size.y
+      value: 0.65625
+      objectReference: {fileID: 0}
+    - target: {fileID: 4613899289502228055, guid: ed8c5bbf2089a1b45b149d2da099fbd4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f17058e2bd3c44745bd37eb71c41adf1, type: 3}
+    - target: {fileID: 4613899289502228055, guid: ed8c5bbf2089a1b45b149d2da099fbd4, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4613899289502228058, guid: ed8c5bbf2089a1b45b149d2da099fbd4, type: 3}
       propertyPath: m_Size.x
       value: 0.71875

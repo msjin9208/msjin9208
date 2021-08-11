@@ -6,30 +6,34 @@ public class BattleManager : MonoBehaviour
 {
     static public BattleManager Instance;
 
-    private List<UnitBase> _stageMonsterInfo;
+    private List<GameObject> _stageMonsterInfo;
     private Dictionary<string, MonsterScripterable> _monsterDic;
     private GameObject _monseter;
+
+    public Dictionary<string, MonsterScripterable> MONSTERDIC
+    {
+        get { return _monsterDic; }
+    }
 
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
 
-
+        
         _monsterDic = new Dictionary<string, MonsterScripterable>();
         LoadMonsterData();
+
+        Messenger.AddListener(Definition.SetMonster, SetStageMonster);
         DontDestroyOnLoad(gameObject);
     }
 
-    public void StageBattleSetting(List<UnitBase> stageMonster)
+    public void StageBattleSetting(List<GameObject> stageMonster)
     {
-        //변경해야 돼 여기서 세팅만 해주고 씬 로드할 때 클론하고 SetActive 해주고 페이드 인 해줘야할 듯
+        if(_stageMonsterInfo != null)
+            _stageMonsterInfo = null;
 
-        MonsterScripterable monster;
-        _monsterDic.TryGetValue("Orc", out monster);
-        _monseter = GameObject.Instantiate(monster.MONSTEROBJECT, new Vector3(0,0,0), Quaternion.identity);
-
-        //_stageMonsterInfo = stageMonster;
+        _stageMonsterInfo = stageMonster;
     }
 
     private void LoadMonsterData()
@@ -45,5 +49,37 @@ public class BattleManager : MonoBehaviour
         {
             etor.Current.Value.MonsterInit();
         }
+    }
+
+    private void SetStageMonster()
+    {
+        if (_stageMonsterInfo == null)
+            return;
+
+        _monseter = null;
+        var etor = _stageMonsterInfo.GetEnumerator();
+        while(etor.MoveNext())
+        {
+            var obj = etor.Current;
+            var death = obj.GetComponent<MonsterBase>().MONSTERDEATH;
+
+            if (death == false)
+            {
+                _monseter = GameObject.Instantiate(obj);
+                _monseter.SetActive(false);
+                Messenger.Broadcast(Definition.MonsterEntry, _monseter);
+                break;
+            }
+        }
+
+        if(_monseter == null)
+        {
+            return;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(Definition.SetMonster, SetStageMonster);
     }
 }

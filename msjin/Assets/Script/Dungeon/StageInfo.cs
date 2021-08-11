@@ -15,7 +15,7 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
     private int _stageNumber;
     private InDungeon _indungeon;
 
-    private List<UnitBase> _stageMonsterInfo;
+    private List<GameObject> _stageMonsterInfo;
 
 
     // ÀÌ´ÖÀº ¿ÀÇÂµÉ ¶§¸¸ ÇÑ´Ù.
@@ -28,25 +28,24 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
         else
             GetComponent<Image>().sprite = _offImage;
 
-        _stageMonsterInfo = new List<UnitBase>();
+        _stageMonsterInfo = new List<GameObject>();
         _stageOpen = true;
-    }
-
-
-    private void EnterStage()
-    {
-
     }
 
      private void MonsterSetting()
     {
-        Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/Unit/Orc.prefab").Completed += 
-            (AsyncOperationHandle<GameObject> obj)=>
+
+        var monsters = BattleManager.Instance.MONSTERDIC;
+        var etor = monsters.GetEnumerator();
+
+        while(etor.MoveNext())
+        {
+            var monster = etor.Current.Value;
+            if(monster.MONSTERLEVEL == _stageNumber + 1)
             {
-                var monster = obj.Result.GetComponent<UnitBase>();
-                monster.InitUnit();
-                _stageMonsterInfo.Add(monster);
-            };
+                _stageMonsterInfo.Add(monster.MONSTEROBJECT);
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -70,7 +69,6 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
                 SceneMgr.Instance.ChangeNextScene(_indungeon);
             }
         }
-
     }
 
 }

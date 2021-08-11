@@ -23,6 +23,10 @@ public class PlayerBase : UnitBase
     {
         get { return _playerAnimation; }
     }
+    public bool MONSTERDEATH
+    {
+        get { return _death; }
+    }
 
     public override void InitUnit()
     {

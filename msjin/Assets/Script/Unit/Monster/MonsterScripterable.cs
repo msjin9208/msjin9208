@@ -14,13 +14,9 @@ public class MonsterScripterable : ScriptableObject
 {
     [SerializeField] string _monsterName;
     [SerializeField] GameObject _monster;
-    MonsterBase _monsterBase;
-    [SerializeField] float _attack;
-    [SerializeField] float _attackSpeed;
-    [SerializeField] float _defence;
-    [SerializeField] float _hp;
-    [SerializeField] float _mp;
+    [SerializeField] int _monsterLevel;
     [SerializeField] MonsterJob _monsterJob;
+    MonsterBase _monsterBase;
     
     public GameObject MONSTEROBJECT
     {
@@ -30,10 +26,14 @@ public class MonsterScripterable : ScriptableObject
     {
         get { return _monsterBase; }
     }
+    public int MONSTERLEVEL
+    {
+        get { return _monsterLevel; }
+    }
 
     public void MonsterInit()
     {
         _monsterBase = _monster.GetComponent<MonsterBase>();
-        _monsterBase.MonsterStatusSetting(_attack, _attackSpeed, _defence, _hp, _mp, _monsterJob);
+        _monsterBase.MonsterStatusSetting(_monsterLevel, _monsterJob);
     }
 }

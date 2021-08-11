@@ -12,6 +12,8 @@ public class InDungeon : SceneBase
     public override void EnterScene()
     {
         base.EnterScene();
+
+        Messenger.Broadcast(Definition.SetMonster);
     }
 
     public override void ExitScene()
