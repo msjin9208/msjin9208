@@ -17,6 +17,7 @@ public class UnitBase : MonoBehaviour
 
     protected UnitStatus _unitStatus;
     protected bool _death = false;
+    protected float _maxHP;
 
     public UnitStatus UNITSTATUS
     {
@@ -27,7 +28,44 @@ public class UnitBase : MonoBehaviour
     public virtual void InitUnit()
     {
         _unitStatus = new UnitStatus();
+        _maxHP = _unitStatus._hp;
     }
 
+    public virtual void HP(float hp, bool attack)
+    {
+        if (attack == true)
+        {
+            _unitStatus._hp -= hp;
+            if (_unitStatus._hp <= 0)
+            {
+                _unitStatus._hp = 0;
+            }
+        }
+        else
+        {
+            _unitStatus._hp += hp;
+            if(_unitStatus._hp > _maxHP)
+            {
+                _unitStatus._hp = _maxHP;
+            }
+        }
+    }
     
+    public virtual void HitDebuffSkill(SkillValueType type, float value)
+    {
+        switch (type)
+        {
+            case SkillValueType.Attack:
+                
+                break;
+            case SkillValueType.AttackSpeed:
+                break;
+            case SkillValueType.Defence:
+                break;
+            case SkillValueType.HP:
+                break;
+            case SkillValueType.MP:
+                break;
+        }
+}
 }

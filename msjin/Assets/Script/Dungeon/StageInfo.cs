@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
     
 public class StageInfo : MonoBehaviour, IPointerClickHandler
 {
@@ -17,7 +15,7 @@ public class StageInfo : MonoBehaviour, IPointerClickHandler
 
     private List<GameObject> _stageMonsterInfo;
 
-
+    
     // ÀÌ´ÖÀº ¿ÀÇÂµÉ ¶§¸¸ ÇÑ´Ù.
     public void StageInit(int stageNumber)
     {

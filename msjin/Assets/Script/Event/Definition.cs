@@ -39,4 +39,7 @@ public class Definition
     //던전
     public const string SetMonster = "SetMonster";
     public const string MonsterEntry = "MonsterEntry";
+
+    //전투
+    public const string SkillTurnOver = "SkillTurnOver";
 }
