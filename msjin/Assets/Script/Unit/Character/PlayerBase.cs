@@ -13,6 +13,7 @@ public class PlayerBase : UnitBase
     private PlayerInfo _playerInfo;
     private PlayerAnimationManager _playerAnimation;
     private List<DropItemBase> _currentEquipItemList;
+    
 
     public PlayerInfo PlayerInfo
     {
@@ -47,6 +48,9 @@ public class PlayerBase : UnitBase
         //플레이어 애니메이터 생성
         _playerAnimation = new PlayerAnimationManager();
 
+        //플레이어 전투 스킬 세팅
+        _arrayMySkill = new SkillBase[10];
+        _arrayMySkill = null;
 
         //메세지 등록
         Messenger.AddListener<DropItemBase>(Definition.PlayerItemEquip, ItemUse);
@@ -183,6 +187,26 @@ public class PlayerBase : UnitBase
     }
     #endregion
 
+    #region 전투
+    public override void Attack()
+    {
+        base.Attack();
+    }
+
+    public override void Hit()
+    {
+        base.Hit();
+    }
+    public override void GetBuff(ValueOfBuff _valueType, TypeOfBuff _typeBuff, float value)
+    {
+        base.GetBuff(_valueType, _typeBuff, value);
+    }
+    public override void GetDeBuff(ValueOfBuff _valueType, TypeOfBuff _typeBuff, float value)
+    {
+        base.GetDeBuff(_valueType, _typeBuff, value);
+    }
+
+    #endregion
 
 
     private void OnDestroy()

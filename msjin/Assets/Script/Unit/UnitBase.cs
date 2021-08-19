@@ -16,6 +16,7 @@ public class UnitBase : MonoBehaviour
     }
 
     protected UnitStatus _unitStatus;
+    protected SkillBase[] _arrayMySkill;
     protected bool _death = false;
     protected float _maxHP;
 
@@ -31,41 +32,40 @@ public class UnitBase : MonoBehaviour
         _maxHP = _unitStatus._hp;
     }
 
-    public virtual void HP(float hp, bool attack)
+    public virtual void Hit()
     {
-        if (attack == true)
-        {
-            _unitStatus._hp -= hp;
-            if (_unitStatus._hp <= 0)
-            {
-                _unitStatus._hp = 0;
-            }
-        }
-        else
-        {
-            _unitStatus._hp += hp;
-            if(_unitStatus._hp > _maxHP)
-            {
-                _unitStatus._hp = _maxHP;
-            }
-        }
+
     }
-    
-    public virtual void HitDebuffSkill(SkillValueType type, float value)
+    public virtual void Attack()
     {
-        switch (type)
+
+    }
+    public virtual void GetBuff(ValueOfBuff _valueType, TypeOfBuff _typeBuff, float value)
+    {
+    
+        
+    }
+    public virtual void GetDeBuff(ValueOfBuff _valueType, TypeOfBuff _typeBuff, float value)
+    {
+
+    }
+
+    public float BuffType(ValueOfBuff _type)
+    {
+        switch (_type)
         {
-            case SkillValueType.Attack:
-                
-                break;
-            case SkillValueType.AttackSpeed:
-                break;
-            case SkillValueType.Defence:
-                break;
-            case SkillValueType.HP:
-                break;
-            case SkillValueType.MP:
-                break;
+            case ValueOfBuff.Attack:
+                return _unitStatus._attack;
+            case ValueOfBuff.AttackSpeed:
+                return _unitStatus._attackSpeed;
+            case ValueOfBuff.Defence:
+                return _unitStatus._defence;
+            case ValueOfBuff.HP:
+                return _unitStatus._hp;
+            case ValueOfBuff.MP:
+                return _unitStatus._mp;
         }
-}
+
+        return default;
+    }
 }

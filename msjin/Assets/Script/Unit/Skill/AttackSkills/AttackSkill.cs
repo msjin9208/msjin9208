@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitBattle : MonoBehaviour
+public class AttackSkill : MonoBehaviour
 {
-
-
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
-    public virtual void Attack(UnitBase target)
+    // Update is called once per frame
+    void Update()
     {
-
+        
     }
-    public virtual void SkillAttack(UnitBase target)
-    {
-
-    }
-    
 }
